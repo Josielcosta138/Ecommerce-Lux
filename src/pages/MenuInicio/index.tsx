@@ -6,4 +6,4 @@ const MenuInicio : FC = () => {
         <div>Menu - Inicio - Teste</div>
     </>
 }
-export default MenuInicio;
+export default MenuInicio;   
