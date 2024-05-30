@@ -1,3 +1,14 @@
+Protótipo
+
+![Página Inicial](https://github.com/Josielcosta138/Ecommerce-Lux-Front/assets/85417849/c78b45dd-307e-4117-ad89-143fe4fa7f52)
+![Produto](https://github.com/Josielcosta138/Ecommerce-Lux-Front/assets/85417849/1a01e9db-f580-4a33-bb2a-ed5e8e1340da)
+![Cadastro(1)](https://github.com/Josielcosta138/Ecommerce-Lux-Front/assets/85417849/e3bfd5a2-e619-46d2-9303-e1af45710f5d)
+![Cadastro(2)](https://github.com/Josielcosta138/Ecommerce-Lux-Front/assets/85417849/3f854405-cb46-4f25-8366-e0744d32f87a)
+![Checkout(1)](https://github.com/Josielcosta138/Ecommerce-Lux-Front/assets/85417849/38f6bc9c-ca5c-4bd4-94ee-d0008ce7b324)
+![Redefinir Informaçoes](https://github.com/Josielcosta138/Ecommerce-Lux-Front/assets/85417849/81a41827-a950-4b17-8c1b-cece9615ef1b)
+
+
+------------------------------------------------------------------------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
