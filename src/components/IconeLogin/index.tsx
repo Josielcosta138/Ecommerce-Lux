@@ -20,11 +20,11 @@ const IconeLogin : FC = () => {
     return<>
         <div className="container-login" onClick={onClickLogin}>
             <div className="div-log">
-            <PersonOutline color ="primary" sx={{fontSize: 40}} />
+            <PersonOutline color ="inherit" sx={{fontSize: 40}} />
             </div>
             <div className="div-usuario">
                 <div className="texto-login">Olá visitantes</div>
-                <div className="texto-login">Entre oçu cadastre-se</div>
+                <div className="texto-login">Entre ou cadastre-se</div>
             </div>
         </div>
         <Popover 
