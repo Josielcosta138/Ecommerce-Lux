@@ -20,7 +20,7 @@ const Home : FC = () =>{
             setProdutos(response.data);
 
         }
-    }
+    };
 
     useEffect(() => {
         carregaProdutos();
@@ -29,6 +29,7 @@ const Home : FC = () =>{
     const redirecionarDetalhesProduto = (idProduto: number) => {
         if(idProduto) {
             window.location.href = `/produtos/detalhes/${idProduto}`;
+
         }    }
 
     return <>
@@ -95,4 +96,5 @@ const Home : FC = () =>{
         
     </>
 }
+
 export default Home;

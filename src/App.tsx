@@ -1,5 +1,5 @@
 import "./style.css";
-import logoSenac from "./pic/logo.png"
+import logoSenac from "./pic/Lux Logo.png"
 import MenuBar from "./components/MenuBar";
 import Router from "./Router";
 import CarrinhoDrawer from "./components/CarrinhoDrawer";
@@ -8,6 +8,9 @@ import IconeLogin from "./components/IconeLogin";
 function App() {
 
 
+
+
+  
   return (
    <div className="body">
       <div className="corpo">
