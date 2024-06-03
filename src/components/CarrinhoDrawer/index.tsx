@@ -77,6 +77,9 @@ const CarrinhoDrawer: FC = () => {
                                 <Box>
                                     <strong>{c.nome}</strong>
                                 </Box>
+                                <Box>
+                                <strong>{c.categoria}</strong>
+                                </Box>
                             </Grid>
                             <Grid className="box-quantidade">
                                 <InputQuantidade
