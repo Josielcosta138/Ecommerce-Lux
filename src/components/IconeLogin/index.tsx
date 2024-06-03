@@ -24,7 +24,7 @@ const IconeLogin : FC = () => {
             </div>
             <div className="div-usuario">
                 <div className="texto-login">Olá visitantes</div>
-                <div className="texto-login">Entre oçu cadastre-se</div>
+                <div className="texto-login">Entre ou cadastre-se</div>
             </div>
         </div>
         <Popover 

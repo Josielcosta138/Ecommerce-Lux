@@ -21,7 +21,8 @@ const ProdutosDetalhe: FC = () => {
     useEffect(() => { //só executa quando a pág é aberta
         console.log('>>>', codigoProduto);
 
-        apiGet(`/produtos/${codigoProduto}`).then((response) => {
+        //  apiGet(`/produtos/${codigoProduto}`).then((response) => { endPointProfessor
+        apiGet(`/produtos/carregar/${codigoProduto}`).then((response) => {
             if (response.status === STATU_CODE.OK) {
                 console.log('>>>', response.data);
                 setProduto(response.data);

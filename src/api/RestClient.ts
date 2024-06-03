@@ -1,5 +1,6 @@
 import { Axios } from "axios";
-const api = new Axios({baseURL: "https://protipo-ecommerce-api.onrender.com/"});
+// const api = new Axios({baseURL: "https://protipo-ecommerce-api.onrender.com/"});
+const api = new Axios({baseURL: "http://localhost:8085/ecommerce/"}); // endPont ecommerce Lux
 
 export interface IDataResponse {
     status: number,

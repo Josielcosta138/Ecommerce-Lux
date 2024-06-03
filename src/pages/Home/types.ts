@@ -2,6 +2,7 @@ export interface IProduto {
     codigoProduto: string,
     id : number,
     nome : string,
+    categoria : string,
     descricao : string,
     preco : number,
     imagemGrande : string,
