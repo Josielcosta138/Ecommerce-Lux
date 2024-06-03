@@ -5,7 +5,7 @@ import { Popover } from "@mui/material";
 const categories = [
   {
     name: "Categorias",
-    subcategories: ["Camisetas", "Feminino", "Masculino" ,"Vestidos", "Jeans"],
+    subcategories: ["Calças", "Camisas", "Jaquetas", "Acessórios"],
   },
 ];
 
