@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Produtos from "./pages/Produtos";
 import Sobre from "./pages/Sobre";
@@ -10,8 +10,8 @@ const Router : FC = () => {
     return(
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<MenuInicio />} />
-                <Route path="/home" element={<Home />} />
+                <Route path="/" element={<Navigate to="/home"/>}/>
+                <Route path="/home" element={<Home />} index/>
                 <Route path="/produtos" element={<Produtos />} />
                 <Route path="/sobre" element={<Sobre /> }/>
                 <Route path="/menuInicio" element={<MenuInicio />}  />
