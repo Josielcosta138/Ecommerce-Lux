@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import BannerPage from '../../components/BannerOfertas';
+import { Box, CircularProgress, CircularProgressProps, Typography } from "@mui/material";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import BannerPage from "../BannerOfertas";
+
 
 function CircularProgressWithLabel(props: CircularProgressProps & { value: number }) {
   return (
@@ -29,7 +28,7 @@ function CircularProgressWithLabel(props: CircularProgressProps & { value: numbe
   );
 }
 
-export default function CircularWithValueLabel() {
+const BannerCarregar: FC = () => {
   const [progress, setProgress] = React.useState(10);
   const navigate = useNavigate();
 
@@ -60,10 +59,12 @@ export default function CircularWithValueLabel() {
         <strong>
           Por favor, aguarde um momento. Você será redirecionado para a página inicial em breve...
         </strong>
-        <div className="banner-ofertas-da-semana">
-                <BannerPage />
-            </div>
       </Typography>
+      <div className="banner-ofertas-da-semana">
+        <BannerPage />
+      </div>
     </Box>
   );
 }
+
+export default BannerCarregar;

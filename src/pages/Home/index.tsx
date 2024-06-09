@@ -8,6 +8,7 @@ import BannerPage from "../../components/BannerOfertas/index";
 import { TbShoppingCartDollar } from "react-icons/tb";
 import { IoNewspaperOutline } from "react-icons/io5";
 import BannerPageNovidades from "../../components/BannerNovidades";
+import BannerCarregar from "../../components/CarregarBannerParaListarProd";
 
 const Home : FC = () =>{
     const [produtos, setProdutos] = useState<IProduto[]>([]); 
@@ -57,7 +58,10 @@ const Home : FC = () =>{
                                 <p>{produto.nome}</p>
                             </div>
                             <div className="produto_categoria">
-                                <p><strong>{produto.categoria === 'ACESSORIOS' ? 'Combos - Kits - Conjuntos' : produto.categoria}</strong></p>
+                                <p><strong>{produto.categoria === 'ACESSORIOS' ? 'Combos' : produto.categoria}</strong></p>
+                            </div>
+                            <div className="produto_tamanho">
+                                <p>{produto.tamanho}</p>
                             </div>
                             <div className="produto_preco">
                                     <p>R$ {produto.preco}</p>
@@ -82,15 +86,11 @@ const Home : FC = () =>{
                 </h3>
             </div>
           
-            <div className="banner-novidades">
+            <div className="banner-novidades-home">
                     <BannerPageNovidades />
             </div>
-        </> : <div 
-                className="carregar-produtos">
-                    <strong>Por favor, aguarde enquanto carregamos as melhores opções de moda...</strong>
-                    <div className="progress-container">
-                        <LinearProgress />
-                    </div>
+        </> : <div >
+                < BannerCarregar />
                </div>
             }
         

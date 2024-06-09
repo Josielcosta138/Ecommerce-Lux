@@ -18,3 +18,7 @@ const BannerPageNovidades = () => {
 };
 
 export default BannerPageNovidades;
+
+
+
+
