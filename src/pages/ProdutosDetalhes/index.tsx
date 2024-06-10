@@ -55,7 +55,9 @@ const ProdutosDetalhe: FC = () => {
         <div className="conteiner-produto">
             <div className="produto-detalhe">
                 <div className="imagem-produto">
-                    <img src={produto?.imagemGrande} />
+                {produto?.enderecoImagem && (
+                        <img src={`/${produto.enderecoImagem}`} />
+                    )}
                 </div>
                 <div className="dados-produto">
                     <div className="nome-produto">{produto?.nome}</div>

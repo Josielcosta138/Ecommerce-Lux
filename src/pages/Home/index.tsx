@@ -21,7 +21,7 @@ const Home : FC = () =>{
             setProdutos(response.data);
 
         }
-    };
+    }; 
 
     useEffect(() => {
         carregaProdutos();
@@ -29,7 +29,7 @@ const Home : FC = () =>{
 
     const redirecionarDetalhesProduto = (idProduto: number) => {
         if(idProduto) {
-            window.location.href = `/produtos/detalhes/${idProduto}`;
+            window.location.href = `produtosestoque/carregarProdutoEstoqueIdProduto/${idProduto}`;
 
         }    }
 
@@ -51,8 +51,9 @@ const Home : FC = () =>{
                 {produtos.map((produto: IProduto) => {
                     return <>
                        <div className="produto">
-                            <a className="produto_imagem" href={`/produtos/detalhes/${produto.id}`}>
-                                <img src={produto.imagemPequena}/>
+                             {/*/produtos/detalhes/$ Rotas  */}
+                            <a className="produto_imagem" href={`/produtos/detalhes/${produto.id}`}> 
+                                <img src={produto.enderecoImagem}/>
                             </a>
                             <div className="produto_nome">
                                 <p>{produto.nome}</p>
