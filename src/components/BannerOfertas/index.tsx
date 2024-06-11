@@ -1,7 +1,7 @@
 // Importações necessárias
 import React from 'react';
-import imagemBanner1 from '../../pic/bannerSaoJoao.jpg';
-import imagemBanner2 from '../../pic/Promo.jpg';
+import imagemBanner1 from '../../pic/BannersCarregamentoProdutos1.jpg';
+import imagemBanner2 from '../../pic/BannerCarregamentoProdutos2.jpg';
 import imagemBanner3 from '../../pic/aquecer.jpg';
 import Slider from 'react-slick'; // Importando o Slider do react-slick
 import "slick-carousel/slick/slick.css";
@@ -24,13 +24,13 @@ const BannerPage = () => {
         <div className="banner-ofertas-da-semana">
             <Slider {...settings}>
                 <div className="imagem-banner">
-                <img src={imagemBanner3} />
+                <img src={imagemBanner1} />
                 </div>
                 <div className="imagem-banner">
                     <img src={imagemBanner2} />
                 </div>
                 <div className="imagem-banner">
-                    <img src={imagemBanner1} />
+                    <img src={imagemBanner3} />
                 </div>
             </Slider>
         </div>

@@ -12,3 +12,13 @@
     border-color: #F7941D;
     padding: 3px;
 }
+
+.botao-indisponivel {
+    width: 100%;
+    background-color: #d16565;
+    color:#ffffff;
+    border-radius: 10px;
+    border-color: #F7941D;
+    padding: 3px;
+    cursor: not-allowed;
+}
