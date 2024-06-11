@@ -1,6 +1,8 @@
 .carrinho{
     display: flex;
     align-items:center;
+    margin-top: 50px;
+    margin-right: 300px;
 }
 
 .tamanho-paper-drawer {
