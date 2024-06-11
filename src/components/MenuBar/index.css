@@ -1,45 +1,104 @@
 .menu ul {
-    list-style-type: none;
-    margin: 0;
-    overflow: hidden;
-    background-color: #1a1a1a;
-    border-radius: 10px;
-  }
-  
-  .menu li {
-    float: left;
-  }
-  
-  .menu li a {
-    display: block;
-    color: aliceblue;
-    text-decoration: none;
-    text-align: center;
-    padding: 12px 16px;
-  }
-  
-  .menu li a:hover {
-    background-color: #f7941d;
-    color: rgb(233, 233, 233);
-  }
-  
-  .menu {
-    padding-top: 10px;
-  }
-  
-  .submenu {
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Espaçamento entre as subcategorias */
-    padding: 10px; /* Aumenta o espaço interno do balão */
-  }
-  
-  .submenu a {
-    color: black;
-    text-decoration: none;
-  }
-  
-  .submenu a:hover {
-    background-color: #ddd;
-  }
-  
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  /* background-color: #1a1a1a; */
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu li {
+  float: left;
+  margin: 0 20px;
+}
+
+.menu li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.menu li a:hover {
+  background-color: #f7941d;
+  color: rgb(233, 233, 233);
+}
+
+.menu {
+  margin-top: 50px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Espaçamento entre as subcategorias */
+  padding: 10px; /* Aumenta o espaço interno do balão */
+}
+
+.submenu a {
+  color: black;
+  text-decoration: none;
+  padding: 5px; /* Espaçamento interno para os links */
+}
+
+.submenu a:hover {
+  background-color: #ddd;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000; /* Certifique-se de que a barra fique acima de outros elementos */
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos da barra de pesquisa */
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  margin-top: 20px; /* Ajuste para o posicionamento da barra de pesquisa */
+}
+
+.search-bar input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-bar button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #f7941d;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #e68314;
+}
