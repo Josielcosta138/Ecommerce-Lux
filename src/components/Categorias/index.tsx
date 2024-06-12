@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IProduto } from "../../pages/Home/types";
-import { STATU_CODE, apiGet } from "../../api/RestClient";
+import { STATUS_CODE, apiGet } from "../../api/RestClient";
 
 const useProducts = (category: string) => {
   const [products, setProducts] = useState<IProduto[]>([]);
@@ -9,7 +9,7 @@ const useProducts = (category: string) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await apiGet(`/produtos/categoria/${category}`);
-      if (response.status === STATU_CODE.OK) {
+      if (response.status === STATUS_CODE.OK) {
         setProducts(response.data);
       }
       setLoading(false);

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiGet, STATU_CODE } from "../../api/RestClient";
+import { apiGet, STATUS_CODE } from "../../api/RestClient";
 import "./index.css"
 import { IProdutoDetalhe } from "./types";
 import BotaoPadrao from "../../components/BtnPadrao";
@@ -24,7 +24,7 @@ const ProdutosDetalhe: FC = () => {
     useEffect(() => { 
 
         apiGet(`/produtosestoque/carregarProdutoEstoqueIdProduto/${codigoProduto}`).then((response) =>  {
-            if (response.status === STATU_CODE.OK) {
+            if (response.status === STATUS_CODE.OK) {
 
                 setQuantidadeProdutoValidar(response.data.quantidade);
                 console.log('quantidade do Produto >>>', response.data.quantidade);
@@ -36,7 +36,7 @@ const ProdutosDetalhe: FC = () => {
 
         //  apiGet(`/produtos/${codigoProduto}`).then((response) => { endPointProfessor
         apiGet(`/produtos/carregar/${codigoProduto}`).then((response) => {
-            if (response.status === STATU_CODE.OK) {
+            if (response.status === STATUS_CODE.OK) {
                 console.log('>>>', response.data);
                 setProduto(response.data);
 

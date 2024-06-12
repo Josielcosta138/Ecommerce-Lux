@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 // import BotaoPadrao from "../../components/BtnPadrao";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import { IProduto } from "../../../pages/Home/types";
-import { STATU_CODE, apiGet } from "../../../api/RestClient";
+import { STATUS_CODE, apiGet } from "../../../api/RestClient";
 import BotaoPadrao from "../../BtnPadrao";
 
 const Camisas: FC = () => {
@@ -14,7 +14,7 @@ const Camisas: FC = () => {
     const carregaProdutos = async () => {
         try {
             const response = await apiGet("/produtos/categoria/camisas");
-            if (response.status === STATU_CODE.OK) {
+            if (response.status === STATUS_CODE.OK) {
                 setProdutos(response.data);
             }
         } catch (error) {
