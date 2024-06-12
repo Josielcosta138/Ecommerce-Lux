@@ -94,7 +94,49 @@ const Home : FC = () =>{
                 < BannerCarregar />
                </div>
             }
-        
+        <div className="novidades">  <h3>
+    <strong>Novidades</strong>  <IoNewspaperOutline style={{ fontSize: "24px", marginLeft: "8px" }} />
+  </h3>
+  <div className="container novidades-container">  {produtos.map((produto: IProduto) => (
+      <div className="produto">
+        {/*/produtos/detalhes/$ Rotas  */}
+        <a
+          className="produto_imagem"
+          href={`/produtos/detalhes/${produto.id}`}
+        >
+          <img src={produto.enderecoImagem} />
+        </a>
+        <div className="produto_nome">
+          <p>{produto.nome}</p>
+        </div>
+        <div className="produto_categoria">
+          <p>
+            <strong>
+              {produto.categoria === "ACESSORIOS"
+                ? "Combos"
+                : produto.categoria}
+            </strong>
+          </p>
+        </div>
+        <div className="produto_tamanho">
+          <p>{produto.tamanho}</p>
+        </div>
+        <div className="produto_preco">
+          <p>R$ {produto.preco}</p>
+          <div className="produto_preco_desconto">
+            <p>R$ -10,00</p>
+          </div>
+        </div>
+        <div>
+          <BotaoPadrao
+            label="Comprar"
+            onClick={() => redirecionarDetalhesProduto(produto.id)}
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
     </>
 }
 
