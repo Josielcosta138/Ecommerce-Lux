@@ -1,6 +1,6 @@
 import { Axios } from "axios";
 // const api = new Axios({baseURL: "https://protipo-ecommerce-api.onrender.com/"});
-const api = new Axios({baseURL: "http://localhost:8089/ecommerce/"}); // endPont ecommerce Lux
+const api = new Axios({baseURL: "http://localhost:8080/ecommerce/"}); // endPont ecommerce Lux
 
 export interface IDataResponse {
     status: number,
@@ -16,7 +16,7 @@ export interface AxiosResponse {
     request?: any;
 }
 
-export enum STATU_CODE {
+export enum STATUS_CODE {
     OK = 200,
     CREATED = 201,
     NO_CONTENT = 204,
@@ -30,11 +30,11 @@ export const apiGet = async (url : string) : Promise<IDataResponse> => {
 
         if (response === undefined) {
             return {
-                status: STATU_CODE.INTERNAL_SERVER_ERROR,
+                status: STATUS_CODE.INTERNAL_SERVER_ERROR,
                 message: "Erro não mapeado"
             }
         }
-        if (response.status === STATU_CODE.NO_CONTENT) {
+        if (response.status === STATUS_CODE.NO_CONTENT) {
             return {
                 status: response.status,
                 message: "Nenhum conteúdo foi retornado"
@@ -48,7 +48,7 @@ export const apiGet = async (url : string) : Promise<IDataResponse> => {
 
     } catch (e) {
         return {
-            status: STATU_CODE.INTERNAL_SERVER_ERROR,
+            status: STATUS_CODE.INTERNAL_SERVER_ERROR,
             message: "Erro não mapeado",
         }
     }

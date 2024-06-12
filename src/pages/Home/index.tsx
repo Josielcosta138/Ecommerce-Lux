@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { STATU_CODE, apiGet } from "../../api/RestClient";
+import { STATUS_CODE, apiGet } from "../../api/RestClient";
 import { IBtnProduto, IProduto } from "./types";
 import "./index.css";
 import BotaoPadrao from "../../components/BtnPadrao";
@@ -16,7 +16,7 @@ const Home : FC = () =>{
     const carregaProdutos = async() => {
         // const response = await apiGet("/produtos/");
         const response = await apiGet("/produtos/carregar/categoriacombo");// endPoint api ecommerce Lux
-        if (response.status === STATU_CODE.OK) {
+        if (response.status === STATUS_CODE.OK) {
             console.log(response);
             setProdutos(response.data);
 

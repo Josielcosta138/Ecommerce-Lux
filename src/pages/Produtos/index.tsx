@@ -1,8 +1,68 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { IProduto } from "./types";
+import { STATUS_CODE, apiGet } from "../../api/RestClient";
+import BotaoPadrao from "../../components/BtnPadrao";
 
 const Produtos : FC = () => {
+    const { categoria } = useParams()
+    const [ produtos, setProdutos ] = useState<IProduto[]>([])
+
+    const carregarProdutos = async() => {
+        console.log("Categoria: ", categoria)
+
+        let url= "/produtos/"
+
+        if (categoria) {
+            url= `/produto/categoria/${categoria}`
+        }
+
+        const response = await apiGet(url)
+
+        if (response.status === STATUS_CODE.OK) {
+            console.log(response)
+            setProdutos(response.data)
+        }
+    }
+
+    useEffect(() => {
+        carregarProdutos();
+    },[])
+
+    const redirecionarDetalhesProduto = (idProduto: number) => {
+        if (idProduto) {
+            window.location.href= `/produtos/detalhes/${idProduto}`
+        }
+    }
+
     return <>
-        <div>Protutos-Teste</div>
+        {produtos?.length ? <>
+            <div className="container">
+                {produtos.map((produto: IProduto) => {
+                    return <>
+                        <div className="produto">
+                            <a className="produto-imagem" href={`produtos/detalhes/${produto.id}`}>
+                                <img src={produto.imagemPequena} />
+                            </a>
+                            <div className="produto-nome">
+                                <p>{produto.nome}</p>
+                            </div>
+                            <div className="produto-preco">
+                                <p>R$ {produto.preco}.00</p>
+                                <div>
+                                    <BotaoPadrao label="Comprar" onClick={() =>{
+                                        redirecionarDetalhesProduto((produto.id))
+                                    }}/>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                })}
+
+            </div>
+        </> : <div>Protutos-Teste</div>
+        }
+
     </>
 }
 export default Produtos;
