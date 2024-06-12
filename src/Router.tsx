@@ -5,6 +5,10 @@ import Produtos from "./pages/Produtos";
 import Sobre from "./pages/Sobre";
 import MenuInicio from "./pages/MenuInicio";
 import ProdutosDetalhe from "./pages/ProdutosDetalhes";
+import Calcas from "./components/Categorias/Calça";
+import Camisas from "./components/Categorias/Camisas";
+import Jaquetas from "./components/Categorias/Jaquetas";
+import Acessórios from "./components/Categorias/Acessórios";
 
 const Router : FC = () => {
     return(
@@ -16,6 +20,11 @@ const Router : FC = () => {
                 <Route path="/sobre" element={<Sobre /> }/>
                 <Route path="/menuInicio" element={<MenuInicio />}  />
                 <Route path="/produtos/detalhes/:codigoProduto" element={<ProdutosDetalhe/>} />
+                <Route path="/calcas" element={<Calcas /> }/>
+                <Route path="/camisas" element={<Camisas /> }/>
+                <Route path="/jaquetas" element={<Jaquetas /> }/>
+                <Route path="/acessorios" element={<Acessórios /> }/>
+                <Route path="*" element={<Home />} />
             </Routes>
         </BrowserRouter>
     );
