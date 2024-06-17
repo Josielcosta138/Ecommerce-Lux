@@ -4,6 +4,8 @@ import MenuBar from "./components/MenuBar";
 import Router from "./Router";
 import CarrinhoDrawer from "./components/CarrinhoDrawer";
 import IconeLogin from "./components/IconeLogin";
+import Footer from "./components/Footer";
+
 
 function App() {
 
@@ -28,7 +30,7 @@ function App() {
           </header>
       <Router />
       <div className="centered">
-        </div>
+        </div><Footer/>
       </div>
    </div>
    
