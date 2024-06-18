@@ -6,6 +6,7 @@ export interface IProduto {
     preco: number,
     imagemGrande: string,
     imagemPequena: string,
+    enderecoImagem: string,
 }
 
 export interface IBtnProduto {

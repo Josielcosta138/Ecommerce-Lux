@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { IProduto } from "./types";
 import { STATUS_CODE, apiGet } from "../../api/RestClient";
 import BotaoPadrao from "../../components/BtnPadrao";
+import "./index.css"
 
 const Produtos : FC = () => {
     const { categoria } = useParams()
@@ -11,7 +12,7 @@ const Produtos : FC = () => {
     const carregarProdutos = async() => {
         console.log("Categoria: ", categoria)
 
-        let url= "/produtos/"
+        let url= "/produtos/carregar"
 
         if (categoria) {
             url= `/produto/categoria/${categoria}`
@@ -41,14 +42,14 @@ const Produtos : FC = () => {
                 {produtos.map((produto: IProduto) => {
                     return <>
                         <div className="produto">
-                            <a className="produto-imagem" href={`produtos/detalhes/${produto.id}`}>
-                                <img src={produto.imagemPequena} />
+                            <a className="produto-imagem" href={`produtos/detalhes/${produto.id}`}> 
+                                <img src={`/${produto.enderecoImagem}`} />
                             </a>
                             <div className="produto-nome">
                                 <p>{produto.nome}</p>
                             </div>
                             <div className="produto-preco">
-                                <p>R$ {produto.preco}.00</p>
+                                <p>R$ {produto.preco}</p>
                                 <div>
                                     <BotaoPadrao label="Comprar" onClick={() =>{
                                         redirecionarDetalhesProduto((produto.id))
