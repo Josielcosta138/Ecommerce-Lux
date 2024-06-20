@@ -9,7 +9,7 @@ import { IProduto } from "../../../pages/Home/types";
 import { STATUS_CODE, apiGet } from "../../../api/RestClient";
 import BotaoPadrao from "../../BtnPadrao";
 
-const Calca: FC = () => {
+const Calcas: FC = () => {
     const [produtos, setProdutos] = useState<IProduto[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -80,4 +80,4 @@ const Calca: FC = () => {
     );
 };
 
-export default Calca;
+export default Calcas;
