@@ -42,7 +42,8 @@ const ProdutosDetalhe: FC = () => {
       const carrinhoItem: ICarrinhoStore = { ...produto, quantidade: quantidadeProduto || 0 };
       addCarrinho(carrinhoItem);
       setOpenModal(false);
-      navigate("/finalizar-compra"); // Redireciona para a página de finalização de compra
+      window.location.reload();
+      // navigate("/finalizar-compra"); // Redireciona para a página de finalização de compra
     }
   };
 

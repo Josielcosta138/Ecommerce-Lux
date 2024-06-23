@@ -124,7 +124,7 @@ const Checkout: FC = () => {
   return (
     <div className="checkout-container">
       <div className="checkout-left">
-        <h1>Checkout</h1>
+        <h1>Confirme seus dados</h1>
         <form onSubmit={handleFinalizarCompra}>
           <h2>Informações do Cliente</h2>
           <div className="form-group">
