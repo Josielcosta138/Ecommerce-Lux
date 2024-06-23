@@ -106,11 +106,14 @@
   border-radius: 4px;
   background-color: #4CAF50;
   margin-top: 20px;
+  visibility: visible; /* Garante que o botão está sempre visível */
+  opacity: 1; /* Garante que o botão é totalmente opaco */
 }
 
 .btn-finalizar-compra:hover {
   background-color: #45a049;
 }
+
 
 .btn-gerar-boleto {
   padding: 10px 20px;

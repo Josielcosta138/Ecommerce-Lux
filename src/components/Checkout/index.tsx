@@ -1,18 +1,21 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { carregarCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
 import "./index.css";
+import BotaoPadrao from "../BtnPadrao";
 
 interface ItemCarrinho {
   nome: string;
   enderecoImagem: string;
   quantidade: number;
   preco: number;
+  id: number; // ajustado para corresponder à interface ICarrinhoStore
 }
 
 const Checkout: FC = () => {
   const navigate = useNavigate();
-  const carrinho: ItemCarrinho[] = carregarCarrinho();
+  const carrinho: ItemCarrinho[] = carregarCarrinho() as ItemCarrinho[];
 
   const [nome, setNome] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -22,31 +25,42 @@ const Checkout: FC = () => {
   const [cep, setCep] = useState<string>("");
   const [formaPagamento, setFormaPagamento] = useState<string>("");
 
-  const handleFinalizarCompra = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFinalizarCompra = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const dataPedido = new Date().toISOString();
+
+    const dataPedido = new Date().toISOString().split('T')[0];
     const clienteId = 1;
     const enderecoId = 1;
     const formaPagamentoId = 1;
 
+    const itensPedido = carrinho.map(item => ({
+      produto: { id: item.id }, // usando 'id' de ItemCarrinho
+      quantidade: item.quantidade,
+      preco: item.preco,
+    }));
+
     const dadosPedido = {
-      nome,
-      email,
-      endereco,
-      cidade,
-      estado,
-      cep,
       dataPedido,
-      clienteId,
+      cliente: nome,
+      totalPedido: parseFloat(calcularTotal()),
+      clientesId: clienteId,
       enderecoId,
       formaPagamentoId,
-      itensPedido: carrinho,
-      totalPedido: calcularTotal(),
+      itensPedido,
     };
 
-    console.log("Dados completos do pedido:", dadosPedido);
-    alert("Compra finalizada com sucesso!");
-    navigate("/");
+    try {
+      const response = await axios.post("http://localhost:8085/ecommerce/pedidovenda/criar", dadosPedido);
+      if (response.status === 201) {
+        alert("Compra finalizada com sucesso!");
+        navigate("/");
+      } else {
+        alert("Erro ao finalizar a compra.");
+      }
+    } catch (error) {
+      console.error("Erro ao criar pedido de venda:", error);
+      alert("Erro ao finalizar a compra.");
+    }
   };
 
   const calcularTotal = (): string => {
