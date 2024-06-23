@@ -15,7 +15,7 @@ const CarrinhoDrawer: FC = () => {
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [carrinho, setCarrinho] = useState<ICarrinhoStore[]>(carregarCarrinho());
     const [total, setTotal] = useState<number>(0);
-    // const navigate = useNavigate();
+    
 
     // Função para calcular o total do carrinho
     const calcularTotal = () => {
@@ -44,10 +44,11 @@ const CarrinhoDrawer: FC = () => {
         throw new Error("Function not implemented.");
     }
 
-    // const handleFinalizarCompra = () => {
-    //     alert("Compra finalizada com sucesso!");
-    //     navigate("/checkout");
-    // };
+    const finalizarCompra = () => {
+        window.location.href = "/finalizar-compra";
+    };
+
+    
 
     return (
         <>
@@ -134,7 +135,7 @@ const CarrinhoDrawer: FC = () => {
                             <BotaoPadrao
                                 label="Finalizar compra"
                                 onClick={() => {
-                                    alert("Finalizar compra");
+                                    finalizarCompra();
                                 }}
                                 // onClick={handleFinalizarCompra}
                             />

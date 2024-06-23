@@ -8,8 +8,6 @@ const FinalizarCompra: FC = () => {
   const carrinho = carregarCarrinho();
 
   const handleFinalizarCompra = () => {
-   
-    alert("Compra finalizada com sucesso!");
     navigate("/checkout");
   };
 
