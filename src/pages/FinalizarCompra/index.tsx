@@ -8,13 +8,13 @@ const FinalizarCompra: FC = () => {
   const carrinho = carregarCarrinho();
 
   const handleFinalizarCompra = () => {
-    // Aqui você pode adicionar a lógica para finalizar a compra, como chamar uma API para processar o pagamento
+   
     alert("Compra finalizada com sucesso!");
-    navigate("/checkout"); // Redireciona para a página inicial após finalizar a compra
+    navigate("/checkout");
   };
 
   const handleContinuarComprando = () => {
-    navigate("/produtos"); // Redireciona para a página de produtos
+    navigate("/produtos");
   };
 
   const calcularTotal = () => {
