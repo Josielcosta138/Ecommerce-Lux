@@ -10,6 +10,7 @@ import Camisas from "./components/Categorias/Camisas";
 import Jaquetas from "./components/Categorias/Jaquetas";
 import Acessórios from "./components/Categorias/Acessórios";
 import FinalizarCompra from "./pages/FinalizarCompra";
+import Checkout from "./components/Checkout";
 
 const Router : FC = () => {
     return(
@@ -26,6 +27,8 @@ const Router : FC = () => {
                 <Route path="/jaquetas" element={<Jaquetas /> }/>
                 <Route path="/acessorios" element={<Acessórios /> }/>
                 <Route path="/finalizar-compra" element={<FinalizarCompra /> }/>
+                <Route path="/checkout" element={<Checkout /> }/>
+
                 
                 <Route path="*" element={<Home />} />
             </Routes>

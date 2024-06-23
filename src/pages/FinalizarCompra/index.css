@@ -14,7 +14,7 @@
 
 .itens-carrinho {
   margin-bottom: 20px;
-  margin-left: 380px;
+  margin-left: 430px;
 }
 
 .item-carrinho {
@@ -28,9 +28,9 @@
 }
 
 .imagem-item {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  width: 83px;
+  height: 85px;
+  margin-right: 3px;
   border-radius: 4px;
   object-fit: cover;
 }
@@ -39,11 +39,13 @@
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  margin-right: 74px;
 }
 
 .item-nome {
   font-weight: bold;
   margin-bottom: 5px;
+  /* margin-right: 45px; */
 }
 
 .item-quantidade, .item-preco {

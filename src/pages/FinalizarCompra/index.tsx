@@ -10,7 +10,7 @@ const FinalizarCompra: FC = () => {
   const handleFinalizarCompra = () => {
     // Aqui você pode adicionar a lógica para finalizar a compra, como chamar uma API para processar o pagamento
     alert("Compra finalizada com sucesso!");
-    navigate("/"); // Redireciona para a página inicial após finalizar a compra
+    navigate("/checkout"); // Redireciona para a página inicial após finalizar a compra
   };
 
   const handleContinuarComprando = () => {
