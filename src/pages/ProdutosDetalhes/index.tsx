@@ -35,7 +35,7 @@ const ProdutosDetalhe: FC = () => {
         }
       }
     });
-  }, [codigoProduto, carrinho]);
+  }, [codigoProduto]); //carrinho
 
   const handleConfirmar = () => {
     if (produto) {
@@ -43,7 +43,6 @@ const ProdutosDetalhe: FC = () => {
       addCarrinho(carrinhoItem);
       setOpenModal(false);
       window.location.reload();
-      // navigate("/finalizar-compra"); // Redireciona para a página de finalização de compra
     }
   };
 

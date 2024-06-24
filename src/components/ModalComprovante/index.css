@@ -1,0 +1,55 @@
+.modal-comprovante {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .comprovante-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .comprovante-header h2 {
+    margin: 0;
+  }
+  
+  .btn-fechar {
+    background: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .btn-fechar:hover {
+    background: #e60000;
+  }
+  
+  .comprovante-body {
+    line-height: 1.6;
+  }
+  
+  .comprovante-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .comprovante-footer p {
+    margin: 0;
+    color: #555;
+  }
+  

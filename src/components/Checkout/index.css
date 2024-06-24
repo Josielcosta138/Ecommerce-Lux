@@ -128,3 +128,31 @@
 .btn-gerar-boleto:hover {
   background-color: #0056b3;
 }
+
+
+
+/* ModalComprovante.css */
+
+.modal-comprovante {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.comprovante-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comprovante-body {
+  line-height: 1.6;
+}
