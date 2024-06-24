@@ -4,16 +4,19 @@ import axios from "axios";
 import { carregarCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
 import "./index.css";
 import BotaoPadrao from "../BtnPadrao";
+import ModalComprovante from "../ModalComprovante";
 
 interface ItemCarrinho {
   nome: string;
   enderecoImagem: string;
   quantidade: number;
   preco: number;
-  id: number; // ajustado para corresponder à interface ICarrinhoStore
+  id: number;
 }
 
 const Checkout: FC = () => {
+  const [mostrarComprovante, setMostrarComprovante] = useState(false);
+  const [dadosPedidoAtual, setDadosPedidoAtual] = useState<any>(null);
   const navigate = useNavigate();
   const carrinho: ItemCarrinho[] = carregarCarrinho() as ItemCarrinho[];
 
@@ -29,12 +32,12 @@ const Checkout: FC = () => {
     e.preventDefault();
 
     const dataPedido = new Date().toISOString().split('T')[0];
-    const clienteId = 1;
-    const enderecoId = 1;
-    const formaPagamentoId = 1;
+    const clienteId = 3;
+    const enderecoId = 5;
+    const formaPagamentoId = 2;
 
     const itensPedido = carrinho.map(item => ({
-      produto: { id: item.id }, // usando 'id' de ItemCarrinho
+      produto: { id: item.id },
       quantidade: item.quantidade,
       preco: item.preco,
     }));
@@ -49,11 +52,17 @@ const Checkout: FC = () => {
       itensPedido,
     };
 
+    const limparCarrinho = () => {
+      localStorage.removeItem("carrinho");
+      // window.location.reload();
+    };
+
     try {
       const response = await axios.post("http://localhost:8085/ecommerce/pedidovenda/criar", dadosPedido);
       if (response.status === 201) {
-        alert("Compra finalizada com sucesso!");
-        navigate("/");
+        setDadosPedidoAtual(dadosPedido);
+        setMostrarComprovante(true);
+        limparCarrinho();
       } else {
         alert("Erro ao finalizar a compra.");
       }
@@ -274,6 +283,9 @@ const Checkout: FC = () => {
           <span>Total: R$ {calcularTotal()}</span>
         </div>
       </div>
+      {mostrarComprovante && dadosPedidoAtual && (
+        <ModalComprovante dadosPedido={dadosPedidoAtual} />
+      )}
     </div>
   );
 };
