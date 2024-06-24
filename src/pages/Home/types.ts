@@ -6,6 +6,7 @@ export interface IProduto {
     tamanho : string,
     descricao : string,
     preco : number,
+    precoAntigo?: number,
     enderecoImagem : string,
     imagemPequena : string,
 }
