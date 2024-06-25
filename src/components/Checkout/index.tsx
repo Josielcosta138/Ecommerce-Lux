@@ -33,8 +33,8 @@ const Checkout: FC = () => {
 
     const dataPedido = new Date().toISOString().split('T')[0];
     const clienteId = 3;
-    const enderecoId = 5;
-    const formaPagamentoId = 2;
+    const enderecoId = 7;
+    const formaPagamentoId = 1;
 
     const itensPedido = carrinho.map(item => ({
       produto: { id: item.id },
@@ -58,7 +58,7 @@ const Checkout: FC = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:8085/ecommerce/pedidovenda/criar", dadosPedido);
+      const response = await axios.post("http://localhost:8089/ecommerce/pedidovenda/criar", dadosPedido);
       if (response.status === 201) {
         setDadosPedidoAtual(dadosPedido);
         setMostrarComprovante(true);
