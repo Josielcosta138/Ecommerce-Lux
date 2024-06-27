@@ -1,5 +1,5 @@
 import { Axios } from "axios";
-const api = new Axios({baseURL: "http://localhost:8085/ecommerce/"}); // endPont ecommerce Lux
+const api = new Axios({baseURL: "http://localhost:8080/ecommerce/"}); // endPont ecommerce Lux
 
 export interface IDataResponse {
     status: number,

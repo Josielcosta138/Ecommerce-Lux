@@ -11,6 +11,7 @@ import Jaquetas from "./components/Categorias/Jaquetas";
 import Acessórios from "./components/Categorias/Acessórios";
 import FinalizarCompra from "./pages/FinalizarCompra";
 import Checkout from "./components/Checkout";
+import Clientes from "./pages/Clientes";
 
 const Router : FC = () => {
     return(
@@ -28,6 +29,7 @@ const Router : FC = () => {
                 <Route path="/acessorios" element={<Acessórios /> }/>
                 <Route path="/finalizar-compra" element={<FinalizarCompra /> }/>
                 <Route path="/checkout" element={<Checkout /> }/>
+                <Route path="/clientes" element={<Clientes />} />
 
                 
                 <Route path="*" element={<Home />} />
