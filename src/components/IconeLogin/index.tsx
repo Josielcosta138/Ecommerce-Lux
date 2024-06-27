@@ -35,7 +35,7 @@ const IconeLogin : FC = () => {
                 vertical: "bottom",
                 horizontal: "left",
             }}>
-               <Login />
+               <Login onClose={onClosePopover}/>
         </Popover>
     </>
 }

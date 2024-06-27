@@ -1,0 +1,17 @@
+.div-container-cliente {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.div-cliente {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.div-campo-cliente {
+    padding-bottom: 10px;
+}
