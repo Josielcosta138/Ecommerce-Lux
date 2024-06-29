@@ -87,7 +87,6 @@ const Home: FC = () => {
           <div className="combos-de-produtos">
             <h3>
               <strong>"Vista-se para Voar. Conquiste o Impossível com Lux."</strong>
-              {/* <IoNewspaperOutline style={{ fontSize: '24px', marginLeft: '8px' }} /> */}
             </h3>
           </div>
 
@@ -210,10 +209,6 @@ const Home: FC = () => {
           <div className="brands-section">
             <h3>Marcas Parceiras</h3>
             <div className="brands-container">
-              {/* <img src="" alt="Brand 1" className="brand-logo" /> */}
-              {/* <img src="/path/to/brand2-logo.jpg" alt="Brand 2" className="brand-logo" />
-              <img src="/path/to/brand3-logo.jpg" alt="Brand 3" className="brand-logo" />
-              <img src="/path/to/brand4-logo.jpg" alt="Brand 4" className="brand-logo" /> */}
               <a href="https://www.instagram.com/growjay_"><img src={grow} alt="Growjay" className="brand-logo" /></a>
               <a href="https://www.nike.com"><img src={nike} alt="Nike" className="brand-logo" /></a>
               <a href="https://eu.louisvuitton.com/eng-e1/homepage"><img src={guici} alt="Gucci" className="brand-logo" /></a>
