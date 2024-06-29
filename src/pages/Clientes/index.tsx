@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
 import { Button, InputLabel, TextField } from "@mui/material";
+import { format, parse } from "date-fns";
 
 const Clientes: FC = () => {
     const [genero, setGenero] = useState<string>()
@@ -12,17 +13,19 @@ const Clientes: FC = () => {
     const [dataNascimento, setDataNascimento] = useState<string>()
 
     const salvarCliente = async() => {
+        const formattedDate = dataNascimento ? format(parse(dataNascimento, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '';
+
         const data = {
             nome: nome,
             sobrenome: sobrenome,
             documento: documento,
             email: email,
             senha: senha,
-            sexo: genero,
-            dataNascimento: dataNascimento,
+            // sexo: genero,
+            dataNascimento: formattedDate,
         }
 
-        const response = await apiPost("/clientes", data)
+        const response = await apiPost("/clientes/criarCliente", data)
         if (response.status === STATUS_CODE.CREATED) {
             alert("O cadastrado realizado!")
         }
@@ -66,9 +69,10 @@ const Clientes: FC = () => {
                 </div>
                 <div className="div-campo-cliente">
                     <TextField
-                        value={dataNascimento}
-                        fullWidth
-                        label="Data de nascimento" 
+                       value={dataNascimento}
+                       fullWidth
+                       label="Data de nascimento (DD/MM/YYYY)"
+                       placeholder="DD/MM/YYYY"
                         onChange={(event) => {
                             if(event){
                                 setDataNascimento(event.target.value)
@@ -89,7 +93,6 @@ const Clientes: FC = () => {
                 <div className="div-campo-cliente">
                     <TextField
                         value={senha}
-                        type="password"
                         fullWidth
                         label="Senha" 
                         onChange={(event) => {

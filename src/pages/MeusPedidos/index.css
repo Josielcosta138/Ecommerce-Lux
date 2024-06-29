@@ -1,0 +1,79 @@
+.meus-pedidos-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .meus-pedidos-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .pedido {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pedido-info {
+    margin-bottom: 20px;
+  }
+  
+  .pedido-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .pedido-info p strong {
+    color: #333;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #fff;
+  }
+  
+  .status.entregue {
+    background-color: #4CAF50;
+  }
+  
+  .status.a-caminho {
+    background-color: #FFA500;
+  }
+  
+  .status.pendente {
+    background-color: #FF0000;
+  }
+  
+  .pedido-itens h2 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .pedido-itens table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .pedido-itens table th, .pedido-itens table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .pedido-itens table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .pedido-itens table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
