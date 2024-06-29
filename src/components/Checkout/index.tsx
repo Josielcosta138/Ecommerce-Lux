@@ -5,6 +5,7 @@ import { carregarCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
 import "./index.css";
 import BotaoPadrao from "../BtnPadrao";
 import ModalComprovante from "../ModalComprovante";
+import { STATUS_CODE, apiPost } from "../../api/RestClient";
 
 interface ItemCarrinho {
   nome: string;
@@ -54,12 +55,11 @@ const Checkout: FC = () => {
 
     const limparCarrinho = () => {
       localStorage.removeItem("carrinho");
-      // window.location.reload();
     };
 
     try {
-      const response = await axios.post("http://localhost:8089/ecommerce/pedidovenda/criar", dadosPedido);
-      if (response.status === 201) {
+      const response = apiPost("pedidovenda/criar", dadosPedido);
+      if ((await response).status === STATUS_CODE.CREATED) {
         setDadosPedidoAtual(dadosPedido);
         setMostrarComprovante(true);
         limparCarrinho();
