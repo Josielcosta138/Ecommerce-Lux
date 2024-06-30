@@ -1,17 +1,60 @@
-.div-container-cliente {
+.div-nome {
     display: flex;
     width: 100%;
-    justify-content: center;
+    margin: 10px;
+    flex-direction: column;
+    align-items: center;
 }
-.div-cliente {
+
+.div-clientes {
     display: flex;
     width: 80%;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 1px solid gray;
-    border-radius: 20px;
-    padding: 30px;
+    border-radius: 10px;
+    padding: 20px;
 }
 
-.div-campo-cliente {
+.div-nome-linha {
+    width: 100%;
     padding-bottom: 10px;
+}
+
+.div-nome-linha p {
+    font-size: 12px;
+    text-align: center;
+}
+
+.text-field-spacing {
+    margin-bottom: 2px;
+}
+
+.modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 274px;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-shadow: 24px;
+    padding: 20px;
+    outline: 0;
+    color: #000;
+}
+
+.modal-box-endereco {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-shadow: 24px;
+    padding: 20px;
+    outline: 0;
+    color: #000;
 }

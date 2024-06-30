@@ -91,7 +91,7 @@ const CarrinhoDrawer: FC = () => {
                     {carrinho?.map((c: ICarrinhoStore) => (
                         <Grid container alignItems="center" key={c.id}>
                             <Grid className="box-imagem" item>
-                                <img className="imagem" src={c.enderecoImagem} alt={c.nome} />
+                                <img className="imagem"  src={`${process.env.PUBLIC_URL}/${c.enderecoImagem}`} alt={c.nome} />
                             </Grid>
                             <Grid className="box-detalhes" item>
                                 <Box>

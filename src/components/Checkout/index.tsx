@@ -1,11 +1,12 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { carregarCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
 import "./index.css";
 import BotaoPadrao from "../BtnPadrao";
 import ModalComprovante from "../ModalComprovante";
-import { STATUS_CODE, apiPost } from "../../api/RestClient";
+import { STATUS_CODE, apiGet, apiPost } from "../../api/RestClient";
+import { GrUpdate } from "react-icons/gr";
 
 interface ItemCarrinho {
   nome: string;
@@ -25,16 +26,62 @@ const Checkout: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [endereco, setEndereco] = useState<string>("");
   const [cidade, setCidade] = useState<string>("");
+  const [bairro, setBairro] = useState<string>("");
   const [estado, setEstado] = useState<string>("");
   const [cep, setCep] = useState<string>("");
   const [formaPagamento, setFormaPagamento] = useState<string>("");
+  const [idCliente, setIdCliente] = useState<string>("");
+  const [enderecoId, setEnderecoId] = useState<number>(0);
+
+  useEffect(() => {
+    // Leitura das informações do localStorage
+    const nomeCliente = localStorage.getItem("nomeCliente") || "";
+    const emailCliente = localStorage.getItem("emailCliente") || "";
+    const idCliente = localStorage.getItem("idCliente") || "";
+
+    setNome(nomeCliente);
+    setEmail(emailCliente);
+    setIdCliente(idCliente);
+  }, []);
+
+  const atualizarEndereco = async () => {
+    
+    try {
+      // Faz uma chamada para a API para buscar o endereço do cliente
+      const response = apiGet(`enderecos/carregaEnderecosIdCliente/${idCliente}`);
+      
+      // Verifica se a resposta da API é bem-sucedida
+      if ((await response).status === STATUS_CODE.OK && (await response).data.length > 0) {
+        const enderecoData = (await response).data[0]; // primeiro endereço
+  
+        setEndereco(enderecoData.rua);
+        setBairro(enderecoData.bairro);
+        setCidade(enderecoData.cidade);
+        setEstado(enderecoData.estado);
+  
+        // Gera um CEP aleatório
+        const cepAleatorio = Math.floor(10000000 + Math.random() * 90000000).toString();
+        setCep(cepAleatorio);
+        setEnderecoId(enderecoData.id); 
+
+      } else {
+        console.error("Nenhum endereço encontrado para o cliente.");
+      }
+    } catch (error) {
+      console.error("Erro ao carregar o endereço:", error);
+      alert("Erro ao carregar o endereço.");
+    }
+
+
+    console.log("Ícone de atualizar clicado!");
+  };
 
   const handleFinalizarCompra = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const dataPedido = new Date().toISOString().split('T')[0];
-    const clienteId = 3;
-    const enderecoId = 7;
+    const clienteId = parseInt(idCliente, 10); 
+    // enderecoId;
     const formaPagamentoId = 1;
 
     const itensPedido = carrinho.map(item => ({
@@ -53,9 +100,11 @@ const Checkout: FC = () => {
       itensPedido,
     };
 
+    
     const limparCarrinho = () => {
       localStorage.removeItem("carrinho");
     };
+
 
     try {
       const response = apiPost("pedidovenda/criar", dadosPedido);
@@ -171,12 +220,30 @@ const Checkout: FC = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="endereco">Endereço</label>
+          <label htmlFor="endereco">Endereço (rua)
+              <button
+                type="button"
+                onClick={atualizarEndereco}
+                className="update-button"
+              >
+          < GrUpdate />
+        </button>
+      </label>
             <input
               type="text"
               id="endereco"
               value={endereco}
               onChange={(e) => setEndereco(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="bairro">Bairro</label>
+            <input
+              type="text"
+              id="bairro"
+              value={bairro}
+              onChange={(e) => setBairro(e.target.value)} 
               required
             />
           </div>
