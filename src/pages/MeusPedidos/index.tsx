@@ -1,83 +1,115 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 import { IProduto } from '../Home/types';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { apiGet } from '../../api/RestClient';
+
+interface Pedido {
+    id: number;
+    dataPedido: string;
+    status: string;
+    totalPedido: number;
+    formaPagamento: {
+        nome: string;
+    };
+    endereco: {
+        rua: string;
+        bairro: string;
+        cidade: string;
+        estado: string;
+    };
+    itensPedido: Array<{
+        produto: {
+            nome: string;
+            enderecoImagem: string;
+        };
+        quantidade: number;
+        preco: number;
+    }>;
+}
 
 
 const MeusPedidos = () => {
+    const { id } = useParams<{ id: string }>();
+    const [pedidos, setPedidos] = useState<Pedido[]>([]);
 
-    const [produtos, setProdutos] = useState<IProduto[]>([]);
+    useEffect(() => {
+        const carregarPedidos = async () => {
+            if (id) {  
+                try {
+                    const response = await apiGet(`/pedidovenda/meuspedidos/carregar/${id}`);
+                
+                    const pedidosComStatusFixo = response.data.map((pedido: any) => ({
+                        ...pedido,
+                        status: 'Entregue', 
+                    }));
+                    setPedidos(pedidosComStatusFixo);
+                } catch (error) {
+                    console.error("Erro ao carregar pedidos:", error);
+                }
+            }
+        };
 
-    const carregarPedidos = (idProduto: number) => {
-        if (idProduto) {
-            window.location.href = `produtosestoque/carregarProdutoEstoqueIdProduto/${idProduto}`;
-          }
+        carregarPedidos();
+    }, [id]);
 
-    }
-
-
-  const pedidos = [
-    {
-      id: 1,
-      data: '2023-06-15',
-      status: 'Entregue',
-      total: 'R$ 150,00',
-      itens: [
-        { nome: 'Produto 1', quantidade: 2, preco: 'R$ 50,00' },
-        { nome: 'Produto 2', quantidade: 1, preco: 'R$ 50,00' }
-      ]
-    },
-    {
-      id: 2,
-      data: '2023-06-20',
-      status: 'A Caminho',
-      total: 'R$ 200,00',
-      itens: [
-        { nome: 'Produto 3', quantidade: 1, preco: 'R$ 200,00' }
-      ]
-    }
-    // Adicione mais pedidos conforme necessário
-  ];
-
-  return (
-    <div className="meus-pedidos-container">
-      <h1>Meus Pedidos</h1>
-      {pedidos.map(pedido => (
-        <div key={pedido.id} className="pedido">
-          <div className="pedido-info">
-            <p><strong>Pedido ID:</strong> {pedido.id}</p>
-            <p><strong>Data:</strong> {pedido.data}</p>
-            <p><strong>Status:</strong> 
-              <span className={pedido.status.toLowerCase().replace(' ', '-')}>
-                {pedido.status}
-              </span>
-            </p>
-            <p><strong>Total:</strong> {pedido.total}</p>
-          </div>
-          <div className="pedido-itens">
-            <h2>Itens do Pedido</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome do Produto</th>
-                  <th>Quantidade</th>
-                  <th>Preço</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pedido.itens.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.nome}</td>
-                    <td>{item.quantidade}</td>
-                    <td>{item.preco}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+    return (
+        <div className="meus-pedidos-container">
+            <h1>Meus Pedidos</h1>
+            {pedidos.map(pedido => (
+                <div key={pedido.id} className="pedido">
+                    <div className="pedido-info">
+                        <p><strong>Pedido ID :</strong> {pedido.id}</p>
+                        <p><strong>Data :</strong> {pedido.dataPedido}</p>
+                        <p><strong>Status : </strong> 
+                        <span 
+                        className={pedido.status ? pedido.status.toLowerCase().replace(' ', '-') : 'status-unknown'}>
+                                {pedido.status || 'Status desconhecido'}
+                        </span>
+                        </p>
+                        <p><strong>Total:</strong> R$ {pedido.totalPedido.toFixed(2)}</p>
+                        <p><strong>Forma de Pagamento:</strong> {pedido.formaPagamento.nome}</p>
+                        <div className="endereco">
+                            <p><strong>Endereço:</strong></p>
+                            <p>{pedido.endereco.rua}, {pedido.endereco.bairro}</p>
+                            <p>{pedido.endereco.cidade} - {pedido.endereco.estado}</p>
+                        </div>
+                    </div>
+                    <div className="pedido-itens">
+                        <h2>Itens do Pedido</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Imagem</th> {/* Adicionada a coluna para a imagem */}
+                                    <th>Nome do Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {pedido.itensPedido.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            {item.produto.enderecoImagem && (
+                                                <img 
+                                                    src={`${process.env.PUBLIC_URL}/${item.produto.enderecoImagem}`} 
+                                                    className="produto-imagem"
+                                                />
+                                            )}
+                                        </td>
+                                        <td>{item.produto.nome}</td>
+                                        <td>{item.quantidade}</td>
+                                        <td>R$ {item.preco.toFixed(2)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default MeusPedidos;
