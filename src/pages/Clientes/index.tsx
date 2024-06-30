@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
+import "./index.css";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
-import { Button, InputLabel, TextField } from "@mui/material";
+import { Button, InputLabel, TextField, Modal, Box, Typography } from "@mui/material";
 import { format, parse } from "date-fns";
 
 const Clientes: FC = () => {
@@ -11,6 +12,18 @@ const Clientes: FC = () => {
     const [email, setEmail] = useState<string>()
     const [senha, setSenha] = useState<string>()
     const [dataNascimento, setDataNascimento] = useState<string>()
+    const [open, setOpen] = useState(false);
+    const [openEndereco, setOpenEndereco] = useState(false);
+    const [modalMessage, setModalMessage] = useState<string>("");
+    const [rua, setRua] = useState<string>();
+    const [bairro, setBairro] = useState<string>();
+    const [cidade, setCidade] = useState<string>();
+    const [estado, setEstado] = useState<string>();
+    const [idCliente, setIdCliente] = useState<number>();
+
+
+    const handleClose = () => setOpen(false);
+    const handleCloseEndereco = () => setOpenEndereco(false);
 
     const salvarCliente = async() => {
         const formattedDate = dataNascimento ? format(parse(dataNascimento, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '';
@@ -21,20 +34,51 @@ const Clientes: FC = () => {
             documento: documento,
             email: email,
             senha: senha,
-            // sexo: genero,
             dataNascimento: formattedDate,
         }
 
         const response = await apiPost("/clientes/criarCliente", data)
         if (response.status === STATUS_CODE.CREATED) {
-            alert("O cadastrado realizado!")
+            setOpen(true);
+            setModalMessage("Cliente cadastrado com sucesso!")
+            setIdCliente(response.data.id);
+
+            setTimeout(() => {
+                setOpen(false);
+                setOpenEndereco(true); //abri model endereço apos cadastrar cliente
+            }, 3000);
         }
     }
 
+
+    const salvarEndereco = async () => {
+        const data = {
+            rua: rua,
+            bairro: bairro,
+            cidade: cidade,
+            estado: estado,
+            idCliente: idCliente
+        };
+
+        const response = await apiPost("/enderecos/criar", data);
+        if (response.status === STATUS_CODE.CREATED) {
+            setOpenEndereco(false);
+            setOpen(true);
+            setModalMessage("Endereço cadastrado com sucesso!")
+
+            setTimeout(() => {
+                setOpen(false);
+            }, 2000);
+        }
+    }
+
+
+
     return <>
-        <div className="div-container-cliente">
-            <div className="div-cliente">
-                <div className="div-campo-cliente">
+        <div className="div-nome">
+            <div className="div-clientes">
+                <div className="div-nome-linha">
+                    <div className="div-nome">
                     <TextField
                         value={nome}
                         fullWidth
@@ -43,9 +87,10 @@ const Clientes: FC = () => {
                             if(event){
                                 setNome(event.target.value);
                             }
-                        }}/>
+                        }}
+                    />
                 </div>
-                <div className="div-campo-cliente">
+                <div className="div-nome">
                     <TextField
                         value={sobrenome}
                         fullWidth
@@ -54,9 +99,10 @@ const Clientes: FC = () => {
                             if(event){
                                 setSobrenome(event.target.value);
                             }
-                        }}/>
+                        }}
+                    />
                 </div>
-                <div className="div-campo-cliente">
+                <div className="div-nome">
                     <TextField
                         value={documento}
                         fullWidth
@@ -67,7 +113,7 @@ const Clientes: FC = () => {
                            } 
                         }} />
                 </div>
-                <div className="div-campo-cliente">
+                <div className="div-nome">
                     <TextField
                        value={dataNascimento}
                        fullWidth
@@ -79,7 +125,7 @@ const Clientes: FC = () => {
                             }
                         }}/>
                 </div>
-                <div className="div-campo-cliente">
+                <div className="div-nome">
                     <TextField
                         value={email}
                         fullWidth
@@ -90,7 +136,7 @@ const Clientes: FC = () => {
                             }
                         }}/>
                 </div>
-                <div className="div-campo-cliente">
+                <div className="div-nome">
                     <TextField
                         value={senha}
                         fullWidth
@@ -101,7 +147,7 @@ const Clientes: FC = () => {
                             }
                         }} />
                 </div>
-                <div className="div-campo-cliente">
+                <div className="div-nome">
                     <Button 
                         variant="contained"
                         onClick={() => {
@@ -111,8 +157,94 @@ const Clientes: FC = () => {
                     </Button>
                 </div>
             </div>
-
         </div>
+        </div>
+
+        <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box className="modal-box">
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Sucesso!
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {modalMessage}
+                    </Typography>
+                </Box>
+            </Modal>
+
+            
+
+        <Modal
+            open={openEndereco}
+            onClose={handleCloseEndereco}
+            aria-labelledby="modal-endereco-title"
+            aria-describedby="modal-endereco-description"
+        >
+            <Box className="modal-box-endereco">
+                <Typography id="modal-endereco-title" variant="h6" component="h2">
+                    Cadastro de Endereço
+                </Typography>
+                <div className="div-nome">
+                    <TextField
+                        value={rua}
+                        fullWidth
+                        label="Rua"
+                        onChange={(event) => {
+                            if (event) {
+                                setRua(event.target.value);
+                            }
+                        }} />
+                </div>
+                <div className="div-nome">
+                    <TextField
+                        value={bairro}
+                        fullWidth
+                        label="Bairro"
+                        onChange={(event) => {
+                            if (event) {
+                                setBairro(event.target.value);
+                            }
+                        }} />
+                </div>
+                <div className="div-nome">
+                    <TextField
+                        value={cidade}
+                        fullWidth
+                        label="Cidade"
+                        onChange={(event) => {
+                            if (event) {
+                                setCidade(event.target.value);
+                            }
+                        }} />
+                </div>
+                <div className="div-nome">
+                    <TextField
+                        value={estado}
+                        fullWidth
+                        label="Estado"
+                        onChange={(event) => {
+                            if (event) {
+                                setEstado(event.target.value);
+                            }
+                        }} />
+                </div>
+                <div className="div-nome">
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            salvarEndereco();
+                        }}>
+                        Salvar Endereço
+                    </Button>
+                </div>
+            </Box>
+        </Modal>
+
+
     </>
 }
 

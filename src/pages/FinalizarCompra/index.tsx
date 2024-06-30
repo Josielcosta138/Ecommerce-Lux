@@ -8,7 +8,24 @@ const FinalizarCompra: FC = () => {
   const carrinho = carregarCarrinho();
 
   const handleFinalizarCompra = () => {
-    navigate("/checkout");
+
+    const clienteJSON = localStorage.getItem("cliente");
+    if (clienteJSON) {
+      const cliente = JSON.parse(clienteJSON);
+      const nomeCliente = cliente.nome || "";
+      const emailCliente = cliente.email || "";
+      const idCliente = cliente.id || "";
+
+
+      // Armazena os dados no localStorage para a página de checkout
+      localStorage.setItem("nomeCliente", nomeCliente);
+      localStorage.setItem("emailCliente", emailCliente);
+      localStorage.setItem("idCliente", idCliente);
+
+      navigate("/checkout");
+    } else {
+      alert("Não há informações de cliente no localStorage.");
+    }
   };
 
   const handleContinuarComprando = () => {

@@ -31,9 +31,7 @@ const Router : FC = () => {
                 <Route path="/finalizar-compra" element={<FinalizarCompra /> }/>
                 <Route path="/checkout" element={<Checkout /> }/>
                 <Route path="/clientes" element={<Clientes />} />
-                <Route path="/meuspedidos" element={<MeusPedidos />} />
-
-                
+                <Route path="/meuspedidos/carregar/:id" element={<MeusPedidos />} />
                 <Route path="*" element={<Home />} />
             </Routes>
         </BrowserRouter>

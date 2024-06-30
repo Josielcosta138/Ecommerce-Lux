@@ -27,7 +27,8 @@ function App() {
           </header>
       <Router />
       <div className="centered">
-        </div><Footer/>
+        </div>
+        <Footer/>
       </div>
    </div>
    

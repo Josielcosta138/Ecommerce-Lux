@@ -4,16 +4,20 @@ import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import { AlternateEmail, Key, Visibility, VisibilityOff } from "@mui/icons-material";
 import { IClienteStore } from "../../store/ClienteStore/type";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
-import { addClienteStore } from "../../store/ClienteStore/clienteStore";
+import { addClienteStore, clearClienteStore } from "../../store/ClienteStore/clienteStore";
 
 interface LoginProperties{
     onClose: () => void,
     onLogin: (cliente : IClienteStore) => void;
+    clienteLogado: IClienteStore | null;
+    onLogout: () => void;
 }
 
 const Login : FC<LoginProperties> = ({
     onClose,
     onLogin,
+    clienteLogado,
+    onLogout,
     
 }) => {
     const [tipoSenha, setTipoSenha] = useState<boolean>(false)
@@ -33,8 +37,7 @@ const Login : FC<LoginProperties> = ({
 
 
 
-        const response = 
-            await apiPost("/clientes/autenticar/", data);
+        const response = await apiPost("/clientes/autenticar", data);
         if (response.status === STATUS_CODE.OK) {
             const dataResult = response.data;
 
@@ -55,69 +58,79 @@ const Login : FC<LoginProperties> = ({
 
 
 
-    return <>
-        
-        <div className="div-login">
-            <div className="div-login-linha">
-                <TextField 
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    value={email}
-                    onChange={(event) => {
-                        if (event){
-                            setEmail(event.target.value);
-                        }
+    return  (
+        <>
+            <div className="div-login">
+                {!clienteLogado ? (
+                    <>
+                <div className="div-login-linha">
+                    <TextField 
+                        fullWidth
+                        label="Email"
+                        value={email}
+                        onChange={(event) => {
+                            if (event){
+                                setEmail(event.target.value);
+                            }
+                        }}
+                        InputProps={{
+                            startAdornment: 
+                            <>
+                                <InputAdornment position="start">
+                                    <AlternateEmail />
+                                </InputAdornment>
+                            </>
+                        }}
+                    />
+                </div>
+                <div className="div-login-linha">
+                    <TextField 
+                        label="Senha"
+                        type={tipoSenha ? "text" : "password"}
+                        value={senha}
+                        onChange={(event) => {
+                            if (event){
+                                setSenha(event.target.value);
+                            }
+                        }}
+                        InputProps={{
+                            startAdornment: 
+                            <>
+                                <InputAdornment position="start">
+                                    <Key />
+                                </InputAdornment>
+                            </>,
+                            endAdornment: 
+                            <>
+                                <IconButton onClick={onTipoSenha}>
+                                    {tipoSenha ? <VisibilityOff/> : <Visibility />}
+                                </IconButton>
+                            </>
+                        }}
+                    />
+                </div>
+                
+                <div className="div-login-linha">
+                    <Button onClick={onClose} style={{width:"50%"}}>Voltar</Button>
+                    <Button style={{width:"50%"}} variant="contained"
+                    onClick={() =>{
+                        autenticarCliente();
                     }}
-                    InputProps={{
-                        startAdornment: 
-                        <>
-                            <InputAdornment position="start">
-                                <AlternateEmail />
-                            </InputAdornment>
-                        </>
-                    }}
-                />
+                    >Entrar</Button>
+                </div>
+                <div className="div-login-linha">
+                    <p>Não possui conta? <a href="/clientes/">Cadastre-se</a></p>
+                </div>
+                </>
+                    ) : (
+                        <div className="div-login-linha">
+                            <Button style={{ width: "100%" }} variant="contained" color="secondary"
+                                onClick={onLogout}
+                            >Sair</Button>
+                        </div>
+                    )}
             </div>
-            <div className="div-login-linha">
-                <TextField 
-                    label="Senha"
-                    type={tipoSenha ? "text" : "password"}
-                    value={senha}
-                    onChange={(event) => {
-                        if (event){
-                            setSenha(event.target.value);
-                        }
-                    }}
-                    InputProps={{
-                        startAdornment: 
-                        <>
-                            <InputAdornment position="start">
-                                <Key />
-                            </InputAdornment>
-                        </>,
-                        endAdornment: 
-                        <>
-                            <IconButton onClick={onTipoSenha}>
-                                {tipoSenha ? <VisibilityOff/> : <Visibility />}
-                            </IconButton>
-                        </>
-                    }}
-                />
-            </div>
-            <div className="div-login-linha">
-                <Button onClick={onClose} style={{width:"50%"}}>Voltar</Button>
-                <Button style={{width:"50%"}} variant="contained"
-                onClick={() =>{
-                    autenticarCliente();
-                }}
-                >Entrar</Button>
-            </div>
-            <div className="div-login-linha">
-                <p>Não possui conta? <a href="/clientes/">Cadastre-se</a></p>
-            </div>
-        </div>
-
-    </>
+        </>
+    )
 }
 export default Login;
