@@ -4,6 +4,7 @@ import { STATUS_CODE, apiPost } from "../../api/RestClient";
 import { Button, InputLabel, TextField, Modal, Box, Typography } from "@mui/material";
 import { format, parse } from "date-fns";
 
+//component Clientes
 const Clientes: FC = () => {
     const [genero, setGenero] = useState<string>()
     const [nome, setNome] = useState<string>()
@@ -22,11 +23,13 @@ const Clientes: FC = () => {
     const [idCliente, setIdCliente] = useState<number>();
 
 
-    const handleClose = () => setOpen(false);
-    const handleCloseEndereco = () => setOpenEndereco(false);
+    const fechar = () => setOpen(false);
+    const fecharEndereco = () => setOpenEndereco(false);
 
     const salvarCliente = async() => {
-        const formattedDate = dataNascimento ? format(parse(dataNascimento, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '';
+
+        const formattedDate = dataNascimento ? 
+            format(parse(dataNascimento, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '';
 
         const data = {
             nome: nome,
@@ -38,16 +41,17 @@ const Clientes: FC = () => {
         }
 
         const response = await apiPost("/clientes/criarCliente", data)
-        if (response.status === STATUS_CODE.CREATED) {
-            setOpen(true);
-            setModalMessage("Cliente cadastrado com sucesso!")
-            setIdCliente(response.data.id);
 
-            setTimeout(() => {
-                setOpen(false);
-                setOpenEndereco(true); //abri model endereço apos cadastrar cliente
-            }, 3000);
-        }
+            if (response.status === STATUS_CODE.CREATED) {
+                setOpen(true);
+                setModalMessage("Cliente cadastrado com sucesso!")
+                setIdCliente(response.data.id);
+
+                setTimeout(() => {
+                    setOpen(false);
+                    setOpenEndereco(true); //abri model endereço apos cadastrar cliente
+                }, 3000);
+            }
     }
 
 
@@ -162,7 +166,7 @@ const Clientes: FC = () => {
 
         <Modal
                 open={open}
-                onClose={handleClose}
+                onClose={fechar}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -180,7 +184,7 @@ const Clientes: FC = () => {
 
         <Modal
             open={openEndereco}
-            onClose={handleCloseEndereco}
+            onClose={fecharEndereco}
             aria-labelledby="modal-endereco-title"
             aria-describedby="modal-endereco-description"
         >
