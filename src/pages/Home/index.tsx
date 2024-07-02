@@ -33,7 +33,7 @@ const Home: FC = () => {
 
   const redirecionarDetalhesProduto = (idProduto: number) => {
     if (idProduto) {
-      window.location.href = `produtosestoque/carregarProdutoEstoqueIdProduto/${idProduto}`;
+      window.location.href = `produtos/detalhes/${idProduto}`;
     }
   };
 
@@ -56,7 +56,7 @@ const Home: FC = () => {
             </h3>
           </div>
 
-          <div className="container">
+          <div className="container" >
             {produtos.map((produto: IProduto) => (
               <div key={produto.id} className="produto">
                 <a className="produto_imagem" href={`/produtos/detalhes/${produto.id}`}>
