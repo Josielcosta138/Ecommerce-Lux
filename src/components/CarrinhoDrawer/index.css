@@ -53,25 +53,27 @@
 
 .btn-finalizar-compra-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end;        
     width: 100%;
 }
 
 
 .btn-finalizar-compra button {
-    width: 50%; 
-    background-color: #28a745; 
+    /* width: 100%;  */
+    width: 570px;
+    background-color: #000000; 
     color: #ffffff; 
     border-radius: 10px;
-    border-color: #28a745;
+    border-color: #000000;
     padding: 10px;
     margin-top: 20px;
+    height: 40px;
 }
 
 
-.btn-finalizar-compra {
-    background-color: #f6faf7; 
-}
+/* .btn-finalizar-compra {
+    background-color: #000000; 
+} */
 
 .total-carrinho{
     margin-top: 80px;
