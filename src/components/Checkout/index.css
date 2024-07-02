@@ -6,8 +6,8 @@
   margin: auto;
 }
 
-.checkout-left,
-.checkout-right {
+.checkout-container .checkout-left,
+.checkout-container .checkout-right {
   width: 48%;
   background-color: #f8f8f8;
   padding: 20px;
@@ -15,43 +15,43 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.checkout-left h1,
-.checkout-right h2 {
+.checkout-container .checkout-left h1,
+.checkout-container .checkout-right h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.form-group {
+.checkout-container .form-group {
   margin-bottom: 15px;
 }
 
-.form-group label {
+.checkout-container .form-group label {
   display: block;
   margin-bottom: 5px;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"] {
+.checkout-container .form-group input[type="text"],
+.checkout-container .form-group input[type="email"] {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.pagamento-detalhes {
+.checkout-container .pagamento-detalhes {
   margin-top: 20px;
 }
 
-.qrcode-pix {
+.checkout-container .qrcode-pix {
   width: 100px;
   height: 100px;
 }
 
-.itens-carrinho {
+.checkout-container .itens-carrinho {
   margin-bottom: 20px;
 }
 
-.item-carrinho {
+.checkout-container .item-carrinho {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -61,7 +61,7 @@
   /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
 }
 
-.imagem-item {
+.checkout-container .imagem-item {
   width: 80px;
   height: 80px;
   margin-right: 10px;
@@ -69,34 +69,34 @@
   object-fit: cover;
 }
 
-.detalhes-item {
+.checkout-container .detalhes-item {
   display: flex;
   flex-direction: column;
 }
 
-.item-nome {
+.checkout-container .item-nome {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.item-detalhes {
+.checkout-container .item-detalhes {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.item-quantidade,
-.item-preco {
+.checkout-container .item-quantidade,
+.checkout-container .item-preco {
   color: #555;
 }
 
-.total-compra {
+.checkout-container .total-compra {
   font-size: 18px;
   font-weight: bold;
   text-align: right;
 }
 
-.btn-finalizar-compra {
+.checkout-container .btn-finalizar-compra {
   display: block;
   width: 100%;
   padding: 10px;
@@ -104,18 +104,18 @@
   border: none;
   cursor: pointer;
   border-radius: 4px;
-  background-color: #4CAF50;
+  background-color: #000000;
   margin-top: 20px;
   visibility: visible; /* Garante que o botão está sempre visível */
   opacity: 1; /* Garante que o botão é totalmente opaco */
 }
 
-.btn-finalizar-compra:hover {
-  background-color: #45a049;
+.checkout-container .btn-finalizar-compra:hover {
+  background-color: #272727;
 }
 
 
-.btn-gerar-boleto {
+.checkout-container .btn-gerar-boleto {
   padding: 10px 20px;
   color: white;
   border: none;
@@ -125,7 +125,7 @@
   margin-top: 20px;
 }
 
-.btn-gerar-boleto:hover {
+.checkout-container .btn-gerar-boleto:hover {
   background-color: #0056b3;
 }
 

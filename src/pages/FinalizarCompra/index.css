@@ -17,7 +17,8 @@
   margin-left: 430px;
 }
 
-.item-carrinho {
+/* .item-carrinho { */
+.finalizar-compra-container .item-carrinho {  
   display: flex;
   align-items: center;
   padding: 10px;
@@ -27,7 +28,7 @@
   /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
 }
 
-.imagem-item {
+.finalizar-compra-container .imagem-item {
   width: 83px;
   height: 85px;
   margin-right: 3px;
@@ -35,24 +36,25 @@
   object-fit: cover;
 }
 
-.detalhes-item {
+.finalizar-compra-container .detalhes-item {
   display: flex;
   flex-direction: column;
   font-size: 14px;
   margin-right: 74px;
 }
 
-.item-nome {
+.finalizar-compra-container .item-nome {
   font-weight: bold;
   margin-bottom: 5px;
   /* margin-right: 45px; */
 }
 
-.item-quantidade, .item-preco {
+/* .item-quantidade, .item-preco { */
+.finalizar-compra-container .item-quantidade, .finalizar-compra-container .item-preco {
   color: #555;
 }
 
-.resumo-compra {
+.finalizar-compra-container .resumo-compra {
   padding: 20px;
   background-color: #fff;
   border-radius: 4px;
@@ -60,13 +62,14 @@
   text-align: center;
 }
 
-.total-compra {
+.finalizar-compra-container .total-compra {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.btn-finalizar-compra, .btn-continuar-comprando {
+/* .btn-finalizar-compra, .btn-continuar-comprando { */
+.finalizar-compra-container .btn-finalizar-compra, .finalizar-compra-container .btn-continuar-comprando {
   padding: 10px 20px;
   color: white;
   border: none;
@@ -75,18 +78,22 @@
   margin: 5px;
 }
 
-.btn-finalizar-compra {
-  background-color: #4CAF50;
+/* .btn-finalizar-compra { */
+.finalizar-compra-container .btn-finalizar-compra {
+  background-color: #000000;
 }
 
-.btn-finalizar-compra:hover {
-  background-color: #aaffaf;
+/* .btn-finalizar-compra:hover { */
+.finalizar-compra-container .btn-finalizar-compra:hover {
+  background-color: #181818;
 }
 
-.btn-continuar-comprando {
+/* .btn-continuar-comprando { */
+.finalizar-compra-container .btn-continuar-comprando {
   background-color: #007BFF;
 }
 
-.btn-continuar-comprando:hover {
+/* .btn-continuar-comprando:hover {*/
+.finalizar-compra-container .btn-continuar-comprando:hover {
   background-color: #0056b3;
 }

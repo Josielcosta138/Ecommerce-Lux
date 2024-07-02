@@ -132,7 +132,9 @@ const CarrinhoDrawer: FC = () => {
                     <div className="linha-separadora"></div>
                     <div className="btn-finalizar-compra-container">
                         <div 
-                        className="btnFinalizarCompra btn-finalizar-compra">
+                        // className="btnFinalizarCompra btn-finalizar-compra">
+                        className="btn-finalizar-compra">
+                        
                             <BotaoPadrao
                                 label="Finalizar compra"
                                 onClick={() => {
