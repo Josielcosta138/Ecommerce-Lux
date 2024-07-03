@@ -50,6 +50,7 @@ const Clientes: FC = () => {
                 setTimeout(() => {
                     setOpen(false);
                     setOpenEndereco(true); //abri model endereço apos cadastrar cliente
+
                 }, 1000);
             }
     }
@@ -72,6 +73,7 @@ const Clientes: FC = () => {
 
             setTimeout(() => {
                 setOpen(false);
+
             }, 1000);
         }
     }

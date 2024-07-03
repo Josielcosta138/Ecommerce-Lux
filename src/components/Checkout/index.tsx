@@ -82,8 +82,6 @@ const Checkout: FC = () => {
     const dataPedido = new Date().toISOString().split('T')[0];
     const clienteId = parseInt(idCliente, 10); 
 
-
-
     const formaPagamentoMap: { [key: string]: number } = {
       "cartaoCredito": 3,
       "cartaoDebito": 3,

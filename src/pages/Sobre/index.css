@@ -1,0 +1,91 @@
+.sobre-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .sobre-banner {
+    background-color: #f7941d;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .sobre-conteudo {
+    margin-top: 20px;
+  }
+  
+  .sobre-empresa,
+  .missao-visao-valores,
+  .nossa-equipe,
+  .sobre-contato {
+    margin-bottom: 40px;
+  }
+  
+  .sobre-empresa h2,
+  .missao-visao-valores h3,
+  .nossa-equipe h2,
+  .sobre-contato h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .sobre-empresa p,
+  .missao-visao-valores p,
+  .valores ul,
+  .nossa-equipe p,
+  .sobre-contato p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .missao-visao-valores {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .missao, .visao, .valores {
+    width: 30%;
+  }
+  
+  .valores ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .equipe-lista {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .equipe-membro {
+    width: 30%;
+    text-align: center;
+  }
+  
+  .equipe-membro img {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .equipe-membro h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .equipe-membro p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .sobre-contato a {
+    color: #f7941d;
+    text-decoration: none;
+  }
+  
