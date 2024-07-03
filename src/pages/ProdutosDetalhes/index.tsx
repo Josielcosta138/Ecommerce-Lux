@@ -22,6 +22,8 @@ const ProdutosDetalhe: FC = () => {
     apiGet(`/produtosestoque/carregarProdutoEstoqueIdProduto/${codigoProduto}`).then((response) => {
       if (response.status === STATUS_CODE.OK) {
         setQuantidadeProdutoValidar(response.data.quantidade);
+        let qnt = response.data.quantidade;
+        localStorage.setItem(`quantidadeProduto_${codigoProduto}`, qnt.toString());
       }
     });
 
@@ -107,13 +109,13 @@ const ProdutosDetalhe: FC = () => {
               />
               <BotaoPadrao
                 label="Adicionar"
-                onClick={() => {
-                  if (quantidadeProdutoValidar > 0) {
-                    setOpenModal(true);
-                  } else {
-                    alert("Quantidade indisponível. Por favor, tente novamente em instantes.");
-                  }
-                }}
+                  onClick={() => {
+                    if (quantidadeProdutoValidar > 0 && quantidadeProdutoValidar >= quantidadeProduto) {
+                      setOpenModal(true);
+                    } else {
+                      alert("Quantidade indisponível.");
+                    }
+                  }}
               />
               {quantidadeProdutoValidar <= 0 && (
                 <button className="botao-indisponivel" disabled>
