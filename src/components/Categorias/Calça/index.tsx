@@ -1,83 +1,71 @@
 import { FC, useEffect, useState } from "react";
-// import { STATU_CODE, apiGet } from "../../api/RestClient";
-// import { IProduto } from "../types";
-// import "../index.css";
-// import "./index.css";
+import { useParams } from "react-router-dom";
+import { IProduto } from "./types";
+// import { STATUS_CODE, apiGet } from "../../api/RestClient";
 // import BotaoPadrao from "../../components/BtnPadrao";
-import { CircularProgress, LinearProgress } from "@mui/material";
-import { IProduto } from "../../../pages/Home/types";
+import "./index.css"
 import { STATUS_CODE, apiGet } from "../../../api/RestClient";
 import BotaoPadrao from "../../BtnPadrao";
 
-const Calcas: FC = () => {
-    const [produtos, setProdutos] = useState<IProduto[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+const Calça : FC = () => {
+    const { categoria } = useParams()
+    const [ produtos, setProdutos ] = useState<IProduto[]>([])
 
-    const carregaProdutos = async () => {
-        try {
-            const response = await apiGet("/produtos/categoria/calcas");
-            if (response.status === STATUS_CODE.OK) {
-                setProdutos(response.data);
-            }
-        } catch (error) {
-            console.error("Erro ao carregar produtos:", error);
-        } finally {
-            setLoading(false);
+    const carregarProdutos = async() => {
+        console.log("Categoria: ", categoria)
+
+        let url= "/produtos/carregar"
+
+        if (categoria) {
+            url= `/produto/categoria/${categoria}`
         }
-    };
+
+        const response = await apiGet(url)
+
+        if (response.status === STATUS_CODE.OK) {
+            console.log(response)
+            setProdutos(response.data)
+        }
+    }
 
     useEffect(() => {
-        carregaProdutos();
-    }, []);
+        carregarProdutos();
+    },[])
 
     const redirecionarDetalhesProduto = (idProduto: number) => {
         if (idProduto) {
-            window.location.href = `/produtos/detalhes/${idProduto}`;
+            window.location.href= `/produtos/detalhes/${idProduto}`
         }
-    };
+    }
 
-    return (
-        <>
-            {loading ? (
-                <div className="carregar-produtos">
-                    <strong>Por favor, aguarde enquanto carregamos as melhores opções de moda...</strong>
-                    <div className="progress-container">
-                        <LinearProgress />
-                    </div>
-                </div>
-            ) : (
-                <>
-                    <div className="container">
-                        {produtos.map((produto: IProduto) => (
-                            <div className="produto" key={produto.id}>
-                                <a className="produto_imagem" href={`/produtos/detalhes/${produto.id}`}>
-                                    <img src={produto.imagemPequena} alt={produto.nome} />
-                                </a>
-                                <div className="produto_nome">
-                                    <p>{produto.nome}</p>
-                                </div>
-                                <div className="produto_categoria">
-                                    <p><strong>{produto.categoria}</strong></p>
-                                </div>
-                                <div className="produto_preco">
-                                    <p>R$ {produto.preco}</p>
-                                    <div className="produto_preco_desconto">
-                                        <p>R$ -10,00</p>
-                                    </div>
-                                </div>
+    return <>
+        {produtos?.length ? <>
+            <div className="container">
+                {produtos.map((produto: IProduto) => {
+                    return <>
+                        <div className="produto">
+                            <a className="produto-imagem" href={`produtos/detalhes/${produto.id}`}> 
+                                <img src={`/${produto.enderecoImagem}`} />
+                            </a>
+                            <div className="produto-nome">
+                                <p>{produto.nome}</p>
+                            </div>
+                            <div className="produto-preco">
+                                <p>R$ {produto.preco}</p>
                                 <div>
-                                    <BotaoPadrao
-                                        label="Comprar"
-                                        onClick={() => redirecionarDetalhesProduto(produto.id)}
-                                    />
+                                    <BotaoPadrao label="Comprar" onClick={() =>{
+                                        redirecionarDetalhesProduto((produto.id))
+                                    }}/>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                </>
-            )}
-        </>
-    );
-};
+                        </div>
+                    </>
+                })}
 
-export default Calcas;
+            </div>
+        </> : <div>Protutos-Teste</div>
+        }
+
+    </>
+}
+export default Calça;

@@ -1,40 +1,61 @@
-/* Calcas.css */
+.div-nome {
+    display: flex;
+    /* width: 100%; */
+    margin: 10px;
+    flex-direction: column;
+    align-items: center;
+}
 
-.produto {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .produto_imagem img {
+.div-clientes {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.div-nome-linha {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  
-  .produto_nome p {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .produto_categoria p {
-    font-size: 16px;
-    color: #666;
-    margin-top: 5px;
-  }
-  
-  .produto_preco {
-    margin-top: 10px;
-  }
-  
-  .produto_preco p {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .produto_preco_desconto p {
-    color: red;
-  }
-  
+    padding-bottom: 10px;
+}
+
+.div-nome-linha p {
+    font-size: 12px;
+    text-align: center;
+}
+
+.text-field-spacing {
+    margin-bottom: 2px;
+}
+
+.modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 274px;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-shadow: 24px;
+    padding: 20px;
+    outline: 0;
+    color: #000;
+}
+
+.modal-box-endereco {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-shadow: 24px;
+    padding: 20px;
+    outline: 0;
+    color: #000;
+}
+ 
