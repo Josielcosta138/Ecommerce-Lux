@@ -1,4 +1,4 @@
-.conteiner-produto {
+/* .conteiner-produto {
     display: flex;
     width: 100%;
     max-width: 100%;
@@ -60,4 +60,133 @@ br {
 
 .botao-produto { 
     padding-top: 30%;
+} */
+
+.conteiner-produto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.produto-detalhe {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.imagem-produto {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem-produto img {
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.dados-produto {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.nome-produto {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+hr {
+    width: 100%;
+    border: 0;
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
+}
+
+.codigo-produto {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.preco-produto {
+    font-size: 16px;
+    color: #555;
+}
+
+.preco-produto p {
+    margin: 5px 0;
+}
+
+.acoes-produto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.acoes-produto .botao-indisponivel {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: not-allowed;
+}
+
+.avaliacoes-produto {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.avaliacoes-produto h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.avaliacao {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.avaliacao:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.tamanho {
+    margin-bottom: 10px;
+}
+
+.tabela-tamanhos table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  .tabela-tamanhos th, .tabela-tamanhos td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .tabela-tamanhos th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  

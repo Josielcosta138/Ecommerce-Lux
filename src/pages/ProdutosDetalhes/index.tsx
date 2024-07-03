@@ -63,6 +63,41 @@ const ProdutosDetalhe: FC = () => {
               <div className="tamanho">{`Tamanho: ${produto?.tamanho}`}</div>
               <div className="descricao">{`Descrição: ${produto?.descricao}`}</div>
               <div className="quantidade">{`Quantidade disponível: ${quantidadeProdutoValidar}`}</div>
+
+              <div className="tabela-tamanhos">
+                <h3>Tabela de Tamanhos</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tamanho</th>
+                      <th>Busto</th>
+                      <th>Cintura</th>
+                      <th>Quadril</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>P</td>
+                      <td>82-86 cm</td>
+                      <td>66-70 cm</td>
+                      <td>90-94 cm</td>
+                    </tr>
+                    <tr>
+                      <td>M</td>
+                      <td>87-91 cm</td>
+                      <td>71-75 cm</td>
+                      <td>95-99 cm</td>
+                    </tr>
+                    <tr>
+                      <td>G</td>
+                      <td>92-96 cm</td>
+                      <td>76-80 cm</td>
+                      <td>100-104 cm</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
             </div>
             <hr />
             <div className="botao-produto">
@@ -89,7 +124,19 @@ const ProdutosDetalhe: FC = () => {
             <br />
           </div>
         </div>
+        <div className="avaliacoes-produto">
+          <h2>Avaliações dos Clientes</h2>
+          <div className="avaliacao">
+            <p><strong>Cliente 1:</strong> Excelente produto!</p>
+            <p>⭐⭐⭐⭐⭐</p>
+          </div>
+          <div className="avaliacao">
+            <p><strong>Cliente 2:</strong> Muito bom, recomendo.</p>
+            <p>⭐⭐⭐⭐</p>
+          </div>
+        </div>
       </div>
+
       <ConfirmarModal
         titulo="Adicionar ao Carrinho"
         mensagem="Confirmar adição de produto ao carrinho"
