@@ -29,7 +29,7 @@ const Checkout: FC = () => {
   const [bairro, setBairro] = useState<string>("");
   const [estado, setEstado] = useState<string>("");
   const [cep, setCep] = useState<string>("");
-  const [formaPagamento, setFormaPagamento] = useState<string>("");
+  const [formaPagamento, setFormaPagamento] = useState<string>();
   const [idCliente, setIdCliente] = useState<string>("");
   const [enderecoId, setEnderecoId] = useState<number>(0);
 
@@ -81,8 +81,23 @@ const Checkout: FC = () => {
 
     const dataPedido = new Date().toISOString().split('T')[0];
     const clienteId = parseInt(idCliente, 10); 
-    // enderecoId;
-    const formaPagamentoId = 1;
+
+
+
+    const formaPagamentoMap: { [key: string]: number } = {
+      "cartaoCredito": 3,
+      "cartaoDebito": 3,
+      "pix": 2,
+      "boleto": 1
+    };
+
+
+      if (formaPagamento === undefined || !(formaPagamento in formaPagamentoMap)) {
+        alert("Por favor, selecione uma forma de pagamento válida.");
+        return;
+      }
+
+    const formaPagamentoId = formaPagamentoMap[formaPagamento];
 
     const itensPedido = carrinho.map(item => ({
       produto: { id: item.id },
