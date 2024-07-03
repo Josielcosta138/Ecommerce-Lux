@@ -1,6 +1,6 @@
 .div-nome {
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     margin: 10px;
     flex-direction: column;
     align-items: center;
@@ -8,7 +8,7 @@
 
 .div-clientes {
     display: flex;
-    width: 80%;
+    width: 30%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -58,3 +58,4 @@
     outline: 0;
     color: #000;
 }
+ 
