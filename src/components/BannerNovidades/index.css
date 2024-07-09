@@ -1,9 +1,9 @@
 .banner-novidades {
-    width: 98%;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
     border-radius: 15px;
-    height: 500px;
+    height: 70%;
 }
 
 .banner-novidades .imagem-banner {
@@ -12,8 +12,8 @@
 }
 
 .banner-novidades .imagem-banner img {
-    width: 1000px;
-    height: 500px;
+    width: 50%;
+    height: 70%;
     border-radius: 15px;
     /* object-fit: cover; */
     /* height: auto; */
