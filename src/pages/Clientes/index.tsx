@@ -1,12 +1,31 @@
 import { FC, useState } from "react";
 import "./index.css";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
-import { Button, InputLabel, TextField, Modal, Box, Typography } from "@mui/material";
+import { Button, TextField, Modal, Box, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { format, parse } from "date-fns";
+import Alert from '@mui/material/Alert';
+import * as React from 'react';
+import Person from '@mui/icons-material/Person';
+import Home from '@mui/icons-material/Home';
+import CreditCard from '@mui/icons-material/CreditCard';
+import Lock from '@mui/icons-material/Lock';
+import MenuCadastroCliente from "../../components/DadosCliente";
+
+const data = [
+    { icon: <Person />, label: 'Dados Pessoais' },
+    { icon: <Home />, label: 'Endereço' },
+    { icon: <CreditCard />, label: 'Cartões' },
+    { icon: <Lock />, label: 'Autenticação' },
+];
+
+
+<MenuCadastroCliente setSection={function (value: React.SetStateAction<string>): void {
+  throw new Error("Function not implemented.");
+} } />
+
 
 //component Clientes
 const Clientes: FC = () => {
-    const [genero, setGenero] = useState<string>()
     const [nome, setNome] = useState<string>()
     const [sobrenome, setSobrenome] = useState<string>()
     const [documento, setDocumento] = useState<string>()
@@ -14,17 +33,14 @@ const Clientes: FC = () => {
     const [senha, setSenha] = useState<string>()
     const [dataNascimento, setDataNascimento] = useState<string>()
     const [open, setOpen] = useState(false);
-    const [openEndereco, setOpenEndereco] = useState(false);
-    const [modalMessage, setModalMessage] = useState<string>("");
     const [rua, setRua] = useState<string>();
     const [bairro, setBairro] = useState<string>();
     const [cidade, setCidade] = useState<string>();
     const [estado, setEstado] = useState<string>();
+    const [endereco, setEndereco] = useState<string>();
     const [idCliente, setIdCliente] = useState<number>();
+    const [section, setSection] = useState<string>('personalData');
 
-
-    const fechar = () => setOpen(false);
-    const fecharEndereco = () => setOpenEndereco(false);
 
     const salvarCliente = async() => {
 
@@ -43,215 +59,207 @@ const Clientes: FC = () => {
         const response = await apiPost("/clientes/criarCliente", data)
 
             if (response.status === STATUS_CODE.CREATED) {
-                setOpen(true);
-                setModalMessage("Cliente cadastrado com sucesso!")
                 setIdCliente(response.data.id);
-
-                setTimeout(() => {
-                    setOpen(false);
-                    setOpenEndereco(true); //abri model endereço apos cadastrar cliente
-
-                }, 1000);
+                localStorage.setItem("idCliente", response.data.id);
             }
+            setTimeout(() => {
+                  salvarEndereco()
+              }, 1500);
     }
 
 
+
     const salvarEndereco = async () => {
+
+      const idClienteStorage = localStorage.getItem("idCliente") || "";
+
         const data = {
             rua: rua,
             bairro: bairro,
             cidade: cidade,
             estado: estado,
-            idCliente: idCliente
+            idCliente: idClienteStorage
         };
 
         const response = await apiPost("/enderecos/criar", data);
         if (response.status === STATUS_CODE.CREATED) {
-            setOpenEndereco(false);
             setOpen(true);
-            setModalMessage("Endereço cadastrado com sucesso!")
-
             setTimeout(() => {
                 setOpen(false);
-
-            }, 1000);
+                localStorage.clear();
+                window.location.href =(`/clientes/`);
+            }, 5000);
         }
     }
 
 
+    return (
+       <div style={{ display: 'flex' }}>
+      <MenuCadastroCliente setSection={setSection} />
 
-    return <>
-        <div className="div-nome">
-            <div className="div-clientes">
-                <div className="div-nome-linha">
-                    <div className="div-nome">
-                    <TextField
-                        value={nome}
-                        fullWidth
-                        label="Nome" 
-                        onChange={(event) => {
-                            if(event){
-                                setNome(event.target.value);
-                            }
-                        }}
-                    />
-                </div>
-                <div className="div-nome">
-                    <TextField
-                        value={sobrenome}
-                        fullWidth
-                        label="Sobrenome" 
-                        onChange={(event) => {
-                            if(event){
-                                setSobrenome(event.target.value);
-                            }
-                        }}
-                    />
-                </div>
-                <div className="div-nome">
-                    <TextField
-                        value={documento}
-                        fullWidth
-                        label="CPF"
-                        onChange={(event) => {
-                           if(event){
-                            setDocumento(event.target.value);
-                           } 
-                        }} />
-                </div>
-                <div className="div-nome">
-                    <TextField
-                       value={dataNascimento}
-                       fullWidth
-                       label="Data de nascimento (DD/MM/YYYY)"
-                       placeholder="DD/MM/YYYY"
-                        onChange={(event) => {
-                            if(event){
-                                setDataNascimento(event.target.value)
-                            }
-                        }}/>
-                </div>
-                <div className="div-nome">
-                    <TextField
-                        value={email}
-                        fullWidth
-                        label="Email" 
-                        onChange={(event) => {
-                            if(event){
-                                setEmail(event.target.value);
-                            }
-                        }}/>
-                </div>
-                <div className="div-nome">
-                    <TextField
-                        value={senha}
-                        fullWidth
-                        label="Senha" 
-                        onChange={(event) => {
-                            if(event){
-                                setSenha(event.target.value)
-                            }
-                        }} />
-                </div>
-                <div className="div-nome">
-                    <Button 
-                        variant="contained"
-                        onClick={() => {
-                            salvarCliente();
-                        }}>
-                            Salvar
-                    </Button>
-                </div>
+
+        {/* Dados Pessoais */}
+      <Box className="full-screen" sx={{ flex: 1, p: 3 }}>
+        {section === 'personalData' && (
+          <div className="div-clientes">
+            <div className="div-nome-linha">
+              <div className="div-nome">
+                <TextField
+                  value={nome}
+                  fullWidth
+                  label="Nome" 
+                  onChange={(event) => setNome(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={sobrenome}
+                  fullWidth
+                  label="Sobrenome" 
+                  onChange={(event) => setSobrenome(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={documento}
+                  fullWidth
+                  label="CPF"
+                  onChange={(event) => setDocumento(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={dataNascimento}
+                  fullWidth
+                  label="Data de nascimento (DD/MM/YYYY)"
+                  placeholder="DD/MM/YYYY"
+                  onChange={(event) => setDataNascimento(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={email}
+                  fullWidth
+                  label="Email" 
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={senha}
+                  fullWidth
+                  label="Senha" 
+                  onChange={(event) => setSenha(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <Button 
+                  variant="contained"
+                  onClick={() => setSection('address')}
+                >
+                  PRÓXIMO
+                </Button>
+              </div>
             </div>
-        </div>
-        </div>
+          </div>
+        )}
 
-        <Modal
+
+
+        {/* Endereço */}
+        {section === 'address' && (
+            <Box className="modal-box-endereco">
+              <div className="div-nome">
+                <TextField
+                  value={rua}
+                  fullWidth
+                  label="Rua"
+                  onChange={(event) => setRua(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={bairro}
+                  fullWidth
+                  label="Bairro"
+                  onChange={(event) => setBairro(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={cidade}
+                  fullWidth
+                  label="Cidade"
+                  onChange={(event) => setCidade(event.target.value)}
+                />
+              </div>
+              <div className="div-nome">
+                <TextField
+                  value={estado}
+                  fullWidth
+                  label="Estado"
+                  onChange={(event) => setEstado(event.target.value)}
+                />
+              </div>
+
+              <FormControl>
+                  <FormLabel id="demo-controlled-radio-buttons-group">Endereços</FormLabel>
+                        <RadioGroup
+                          aria-labelledby="demo-controlled-radio-buttons-group"
+                          name="controlled-radio-buttons-group"
+                            value={endereco}
+                            onChange={(event) => setEndereco(event.target.value)}
+                        >
+                        <FormControlLabel value="Casa" control={<Radio />} label="Casa" />
+                        <FormControlLabel value="Trabalho" control={<Radio />} label="Trabalho" />
+                        <FormControlLabel value="Opcional" control={<Radio />} label="Opcional" />
+                  </RadioGroup>
+            </FormControl>
+
+
+              <div className="div-nome">
+                <Button
+                  variant="contained"
+                  onClick={salvarCliente}
+                >
+                  Salvar Endereço
+                </Button>
+              </div>
+            </Box>
+        )}
+
+        {/* Mensagem de sucesso */}
+         <Modal
                 open={open}
-                onClose={fechar}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                onClose={() => setOpen(false)}
             >
-                <Box className="modal-box">
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Sucesso!
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {modalMessage}
-                    </Typography>
+                <Box className="alert-box" sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
+                    <Alert severity="success" sx={{ mb: 2 }}>Cliente e endereço cadastrados com sucesso!</Alert>
                 </Box>
             </Modal>
 
-            
-
-        <Modal
-            open={openEndereco}
-            onClose={fecharEndereco}
-            aria-labelledby="modal-endereco-title"
-            aria-describedby="modal-endereco-description"
-        >
-            <Box className="modal-box-endereco">
-                <Typography id="modal-endereco-title" variant="h6" component="h2">
-                    Cadastro de Endereço
-                </Typography>
-                <div className="div-nome">
-                    <TextField
-                        value={rua}
-                        fullWidth
-                        label="Rua"
-                        onChange={(event) => {
-                            if (event) {
-                                setRua(event.target.value);
-                            }
-                        }} />
-                </div>
-                <div className="div-nome">
-                    <TextField
-                        value={bairro}
-                        fullWidth
-                        label="Bairro"
-                        onChange={(event) => {
-                            if (event) {
-                                setBairro(event.target.value);
-                            }
-                        }} />
-                </div>
-                <div className="div-nome">
-                    <TextField
-                        value={cidade}
-                        fullWidth
-                        label="Cidade"
-                        onChange={(event) => {
-                            if (event) {
-                                setCidade(event.target.value);
-                            }
-                        }} />
-                </div>
-                <div className="div-nome">
-                    <TextField
-                        value={estado}
-                        fullWidth
-                        label="Estado"
-                        onChange={(event) => {
-                            if (event) {
-                                setEstado(event.target.value);
-                            }
-                        }} />
-                </div>
-                <div className="div-nome">
-                    <Button
-                        variant="contained"
-                        onClick={() => {
-                            salvarEndereco();
-                        }}>
-                        Salvar Endereço
-                    </Button>
-                </div>
-            </Box>
-        </Modal>
 
 
-    </>
-}
+        {/* Cartões */}
+        {section === 'paymentCards' && (
+          <div>
+            {/* Implementar a lógica para Cartões aqui */}
+            <Typography variant="h6">Cartões</Typography>
+            <Typography variant="body1">Gerencie seus cartões aqui.</Typography>
+          </div>
+        )}
+
+        {/* Autentitacação */}
+        {section === 'authentication' && (
+          <div>
+            {/* Implementar a lógica para Autenticação aqui */}
+            <Typography variant="h6">Autenticação</Typography>
+            <Typography variant="body1">Gerencie suas configurações de autenticação aqui.</Typography>
+          </div>
+        )}
+      </Box>
+    </div>
+  );
+};
 
 export default Clientes;

@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { carregarCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
-import { Button, InputLabel, TextField, Modal, Box, Typography } from "@mui/material";
+import { Button, InputLabel, TextField, Modal, Box, Typography, Alert } from "@mui/material";
 import "./index.css";
 import "../../pages/Clientes/index.css";
 import { wait } from "@testing-library/user-event/dist/utils";
@@ -23,7 +23,6 @@ const FinalizarCompra: FC = () => {
           const emailCliente = cliente.email || "";
           const idCliente = cliente.id || "";
 
-
           // Armazena os dados no localStorage para a página de checkout
           localStorage.setItem("nomeCliente", nomeCliente);
           localStorage.setItem("emailCliente", emailCliente);
@@ -32,11 +31,11 @@ const FinalizarCompra: FC = () => {
           navigate("/checkout");
       } else {
           setOpen(true);
-          setModalMessage("Não há cliente logado ao sistema!")
+          setModalMessage("Estamos quase lá! Faça o login para finalizar a sua compra e concluir o pedido :D");
 
             setTimeout(() => {
               setOpen(false);
-            } ,5000);
+            } ,7000);
         }
   };
 
@@ -76,13 +75,9 @@ const FinalizarCompra: FC = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className="modal-box">
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Algo deu errado :/
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {modalMessage}
-                    </Typography>
+
+                <Box className="alert-box" sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
+                  <Alert variant="filled" severity="info" sx={{ mb: 2 }}>  {modalMessage}</Alert>
                 </Box>
             </Modal>
 

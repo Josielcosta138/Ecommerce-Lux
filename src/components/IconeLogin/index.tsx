@@ -1,11 +1,11 @@
 import { PersonOutline } from "@mui/icons-material";
 import React, { FC, useState, useEffect } from "react";
 import "./index.css";
-import { Button, Popover } from "@mui/material";
+import { Avatar, Button, Popover } from "@mui/material";
 import Login from "../Login";
 import { IClienteStore } from "../../store/ClienteStore/type";
 import { addClienteStore, getClienteStore, clearClienteStore } from "../../store/ClienteStore/clienteStore";
-import { RiShoppingBag4Fill } from "react-icons/ri";
+import EuUseImg from "../../pic/EuUse.png"
 
 
 
@@ -44,16 +44,6 @@ const IconeLogin: FC = () => {
     }
 
 
-
-    const redirecionamentoDePedidos = () => {
-        if (clienteStore?.id) {
-            window.location.href =(`/meuspedidos/carregar/${clienteStore.id}`);
-        }
-    }
-
-
-
-
     return (
         <>
             <div className="container-login" onClick={onClickLogin}>
@@ -63,24 +53,6 @@ const IconeLogin: FC = () => {
                 <div className="div-usuario">
                     <div className="texto-login">Olá, {clienteStore?.nome ? clienteStore.nome : "Visitante"}</div>
                     <div className="texto-login">{clienteStore?.nome ? "Seja bem-vindo" : "Entre ou cadastre-se"}</div>
-                    {clienteStore?.id && (
-                        <div className="div-pedidos">
-                         <span 
-                                onClick={redirecionamentoDePedidos} 
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    color: '#1E90FF',  
-                                    textDecoration: 'underline', 
-                                    cursor: 'pointer', 
-                                    fontSize: '16px' 
-                                }}
-                            >
-                                <RiShoppingBag4Fill style={{ marginRight: '12px', fontSize: '30px' }} />  {/* Ícone ao lado do texto */}
-                                Meus pedidos
-                            </span>
-                    </div>
-                )}
                 </div>
             </div>
            

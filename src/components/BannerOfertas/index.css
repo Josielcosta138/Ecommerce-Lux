@@ -1,5 +1,6 @@
 .banner-ofertas-da-semana {
-    width: 98%;
+    max-width: 1190px !important;
+    width: 70%;
     margin: 0 auto;
     padding: 20px;
     border-radius: 15px;

@@ -9,7 +9,22 @@
 }
 
 .div-login-linha p{
-    font-size: 12px;
+    font-size: 5px;
     text-align: center;
 }
 
+
+.textfield-small {
+    padding-top: 15px !important;
+    width: 280px; 
+}
+
+.textfield-small label {
+    padding-top: 15px !important;
+}
+
+
+.div-login-linha-descricao p{
+    font-size: 17px !important;
+    text-align: center;
+}

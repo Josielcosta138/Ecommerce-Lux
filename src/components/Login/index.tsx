@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "./index.css";
-import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Alert, Box, Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import { AlternateEmail, Key, Visibility, VisibilityOff } from "@mui/icons-material";
 import { IClienteStore } from "../../store/ClienteStore/type";
 import { STATUS_CODE, apiPost } from "../../api/RestClient";
 import { addClienteStore, clearClienteStore } from "../../store/ClienteStore/clienteStore";
+import Perfil from "../Perfil";
+import { error } from "console";
 
 interface LoginProperties{
     onClose: () => void,
@@ -23,6 +25,10 @@ const Login : FC<LoginProperties> = ({
     const [tipoSenha, setTipoSenha] = useState<boolean>(false)
     const [email, setEmail] = useState<string>();
     const [senha, setSenha] = useState<string>();
+    const [errorMessage, setErrorMessage] = useState("");
+    const [openAlert, setOpenAlert] = useState(false);
+    
+
 
     const onTipoSenha = () => {
         setTipoSenha(!tipoSenha)
@@ -50,12 +56,31 @@ const Login : FC<LoginProperties> = ({
             addClienteStore(cliente);
             onLogin(cliente);
 
+            const clienteJSON = localStorage.getItem("cliente");
+                if (clienteJSON){
+                    const idCliente = cliente.id || "";
+                    localStorage.setItem("idCliente", idCliente.toString())
+                }
+
+                setErrorMessage("");
+                setOpenAlert(false);
+
             return;
         }
-        alert("Usuário ou senha invalido!")
+        setErrorMessage("Por favor, verifique seu usuário e senha!");
+        setOpenAlert(true);
+
+        if (response.status === STATUS_CODE.UNAUTHORIZED) {
+            setErrorMessage("Por favor, verifique seu usuário e senha!");
+          } else {
+            setErrorMessage("Erro na autenticação. Por favor, tente novamente.");
+          }
+          setOpenAlert(true);
     }
 
 
+
+    
 
 
     return  (
@@ -65,7 +90,8 @@ const Login : FC<LoginProperties> = ({
                     <>
                 <div className="div-login-linha">
                     <TextField 
-                        fullWidth
+                        className="textfield-small"
+                        // fullWidth
                         label="Email"
                         value={email}
                         onChange={(event) => {
@@ -85,6 +111,7 @@ const Login : FC<LoginProperties> = ({
                 </div>
                 <div className="div-login-linha">
                     <TextField 
+                        className="textfield-small"
                         label="Senha"
                         type={tipoSenha ? "text" : "password"}
                         value={senha}
@@ -112,24 +139,35 @@ const Login : FC<LoginProperties> = ({
                 
                 <div className="div-login-linha">
                     <Button onClick={onClose} style={{width:"50%"}}>Voltar</Button>
-                    <Button style={{width:"50%"}} variant="contained"
-                    onClick={() =>{
-                        autenticarCliente();
-                    }}
-                    >Entrar</Button>
+                    <Button 
+                        style={{width:"30%"}} 
+                        variant="contained"
+                        onClick={() =>{
+                            autenticarCliente();
+                        }}
+                        >Entrar
+                    </Button>
                 </div>
-                <div className="div-login-linha">
+                <div className="div-login-linha-descricao">
                     <p>Não possui conta? <a href="/clientes/">Cadastre-se</a></p>
                 </div>
                 </>
                     ) : (
-                        <div className="div-login-linha">
-                            <Button style={{ width: "100%" }} variant="contained" color="secondary"
-                                onClick={onLogout}
-                            >Sair</Button>
-                        </div>
+
+                         <Perfil />   
                     )}
             </div>
+
+
+            {errorMessage && (
+        <Box className="alert-box" sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
+          <Alert variant="filled" severity="error" sx={{ mb: 2 }} onClose={() => setOpenAlert(false)}>
+            {errorMessage}
+          </Alert>
+        </Box>
+      )}
+
+
         </>
     )
 }

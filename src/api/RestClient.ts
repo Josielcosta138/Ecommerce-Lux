@@ -1,5 +1,6 @@
 import { Axios } from "axios";
-const api = new Axios({baseURL: "http://localhost:8085/ecommerce/"}); // endPont ecommerce Lux
+// const api = new Axios({baseURL: "http://localhost:8085/ecommerce/"}); // endPoint LOCAL
+const api = new Axios({baseURL: process.env.REACT_APP_API_BASE_URL}); // endPoint NUVEM
 
 export interface IDataResponse {
     status: number,
@@ -21,6 +22,8 @@ export enum STATUS_CODE {
     NO_CONTENT = 204,
     BAD_REQUEST = 400,
     INTERNAL_SERVER_ERROR = 500,
+    UNAUTHORIZED = 401, 
+
 }
 
 export const apiGet = async (url : string) : Promise<IDataResponse> => {

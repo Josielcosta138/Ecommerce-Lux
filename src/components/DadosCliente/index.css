@@ -1,5 +1,4 @@
-
-  .div-nome {
+.div-nome {
     margin-bottom: 16px;
   }
   
@@ -89,4 +88,30 @@
   padding: 20px;
   outline: 0;
   color: #000;
+}
+
+
+.list-item {
+  padding: 0;
+}
+
+.list-item-button {
+  height: 56px;
+}
+
+.list-item-text {
+  color: black;
+  font-weight: medium;
+  font-size: 16px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.list-item-text:hover {
+  transform: scale(1.1);
+}
+
+
+.css-7nis55-MuiList-root .MuiSvgIcon-root {
+  font-size: 20px;
+  color: orangered;
 }

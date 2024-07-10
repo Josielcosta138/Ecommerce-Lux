@@ -13,6 +13,7 @@ import FinalizarCompra from "./pages/FinalizarCompra";
 import Checkout from "./components/Checkout";
 import Clientes from "./pages/Clientes";
 import MeusPedidos from "./pages/MeusPedidos";
+import EditarClientes from "./pages/EditarClientes";
 
 const Router : FC = () => {
     return(
@@ -31,6 +32,7 @@ const Router : FC = () => {
                 <Route path="/finalizar-compra" element={<FinalizarCompra /> }/>
                 <Route path="/checkout" element={<Checkout /> }/>
                 <Route path="/clientes" element={<Clientes />} />
+                <Route path="/editarclientes" element={<EditarClientes />} />
                 <Route path="/meuspedidos/carregar/:id" element={<MeusPedidos />} />
                 <Route path="*" element={<Home />} />
             </Routes>
