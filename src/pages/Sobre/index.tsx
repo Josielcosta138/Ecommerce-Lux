@@ -64,7 +64,7 @@ const Sobre: React.FC = () => {
                     <p>
                       <a  href="https://www.linkedin.com/in/ramonjoaquim1/" 
                           target="_blank" 
-                          rel="noopener noreferrer">LinkedIn de Josiel Costa</a>
+                          rel="noopener noreferrer">LinkedIn de Ramon B. J.</a>
                     </p>
               </section>
             </div>
