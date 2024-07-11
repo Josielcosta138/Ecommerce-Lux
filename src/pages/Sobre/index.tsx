@@ -1,9 +1,8 @@
 import React from "react";
 import "./index.css";
-import josiel from '../../pic/josiba.jpeg';
-import ramon from '../../pic/ramonneymar.webp';
-import matheus from '../../pic/mateus.jpeg';
-import rafael from '../../pic/rafael.jpeg';
+import josiel from '../../pic/josielPerfil.jpg';
+import ramon from '../../pic/Ramonzinho.jpg';
+
 
 const Sobre: React.FC = () => {
   return (
@@ -43,27 +42,31 @@ const Sobre: React.FC = () => {
           </div>
         </section>
         <section className="nossa-equipe">
-          <h2>Nossa Equipe</h2>
+          <h2>Nosso Time</h2>
           <div className="equipe-lista">
             <div className="equipe-membro">
               <img src={josiel} alt="Josiel Costa" />
               <h4>Josiel Costa</h4>
-              <p>Engenheiro e Desenvolvedor de Software Sênior</p>
+              <p>Desenvolvedor - Full-Stack</p>
+              <section className="sobre-contato">
+                    <p>
+                      <a  href="https://www.linkedin.com/in/josiel-costa-07b2aa140/" 
+                          target="_blank" 
+                          rel="noopener noreferrer">LinkedIn de Josiel Costa</a>
+                    </p>
+              </section>
             </div>
             <div className="equipe-membro">
               <img src={ramon} alt="Ramon B. J." />
               <h4>Ramon B. J.</h4>
-              <p>Desenvolvedor Semi-Sênior - Front-End</p>
-            </div>
-            <div className="equipe-membro">
-              <img src={matheus} alt="Matheus Crispim" />
-              <h4>Matheus Crispim</h4>
-              <p>Engenheiro e Arquiteto de Software Sênior</p>
-            </div>
-            <div className="equipe-membro">
-              <img src={rafael} alt="Rafael Chagas" />
-              <h4>Rafael Chagas</h4>
-              <p>Tester de Software e Dev. Sênior</p>
+              <p>Desenvolvedor - Front-End</p>
+              <section className="sobre-contato">
+                    <p>
+                      <a  href="https://www.linkedin.com/in/ramonjoaquim1/" 
+                          target="_blank" 
+                          rel="noopener noreferrer">LinkedIn de Josiel Costa</a>
+                    </p>
+              </section>
             </div>
           </div>
         </section>

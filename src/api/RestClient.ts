@@ -1,6 +1,6 @@
 import { Axios } from "axios";
-// const api = new Axios({baseURL: "http://localhost:8085/ecommerce/"}); // endPoint LOCAL
-const api = new Axios({baseURL: process.env.REACT_APP_API_BASE_URL}); // endPoint NUVEM
+const api = new Axios({baseURL: "http://localhost:8085/ecommerce/"}); // endPoint LOCAL
+// const api = new Axios({baseURL: process.env.REACT_APP_API_BASE_URL}); // endPoint NUVEM
 
 export interface IDataResponse {
     status: number,
