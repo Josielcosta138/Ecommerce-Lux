@@ -12,11 +12,9 @@
 }
 
 .banner-novidades .imagem-banner img {
-    width: 80% !important;
-    height: 400px;
+    width: 1602px !important;
+    height: 285px;
     border-radius: 15px;
     object-fit: cover !important;
     object-position: center !important;
-    /* object-fit: cover; */
-    /* height: auto; */
 }

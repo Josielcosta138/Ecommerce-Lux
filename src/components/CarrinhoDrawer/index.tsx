@@ -104,7 +104,7 @@ const CarrinhoDrawer: FC = () => {
                                     <strong style={{ color: "#888", fontWeight: "bold",  fontSize: "1em" }}>Preço: {c.preco}</strong>
                                 </Box>
                                 <Box style={{ color: "#888", marginTop: "8px" }}>
-                                    <strong style={{ fontSize: "1.05em" }}>Subtotal: R$ {c.preco * c.quantidade}</strong>
+                                    <strong style={{ fontSize: "1.05em" }}>Subtotal: R$ {(c.preco * c.quantidade).toFixed(2).replace('.',',')}</strong>
                                 </Box>
                             </Grid>
                             <Grid className="box-quantidade" item>
@@ -125,7 +125,7 @@ const CarrinhoDrawer: FC = () => {
                     ))}
                     <div className="total-carrinho">
                         <Box style={{  marginTop: "8px" }}>
-                            <strong style={{ fontSize: "1.2em" }}>Total: R$ {total}</strong>
+                            <strong style={{ fontSize: "1.2em" }}>Total: R$ {(total).toFixed(2).replace('.',',')}</strong>
                         </Box>
                     </div>
                    

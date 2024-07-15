@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { STATUS_CODE, apiGet } from "../../api/RestClient";
 import { IBtnProduto, IProduto } from "./types";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "./index.css";
@@ -13,7 +13,8 @@ import BannerPageNovidades from "../../components/BannerNovidades";
 import BannerCarregar from "../../components/CarregarBannerParaListarProd";
 import { FaShippingFast, FaPhoneAlt, FaRegSmile } from "react-icons/fa";
 import ProdutosNovidades from "../../components/CarrocelNovidades/produtoNovidades";
-
+import { MdOutlineWorkHistory } from "react-icons/md";
+import { BiHappyHeartEyes } from "react-icons/bi";
 
 
 const Home: FC = () => {
@@ -36,8 +37,6 @@ const Home: FC = () => {
     }
   };
 
- 
-  const produtosCombos = produtos.filter(produto => produto.categoria !== 'NOVO');
 
   return (
     <>
@@ -47,7 +46,7 @@ const Home: FC = () => {
             <BannerPage />
           </div>
 
-          <div className="combos-de-produtos">
+          <div className="combos-de-produtos" style={{ background: '#F2F2F2' }}>
             <h3>
               <strong>Combos de ofertas</strong>
               <TbShoppingCartDollar style={{ fontSize: '24px', marginLeft: '8px' }} />
@@ -81,9 +80,8 @@ const Home: FC = () => {
               </div>
             ))}
           </div>
-
           <div className="combos-de-produtos">
-            <h3>
+            <h3 style={{ marginTop: '70px' }}>
               <strong>"Vista-se para Voar. Conquiste o Impossível com Lux."</strong>
             </h3>
           </div>
@@ -91,13 +89,19 @@ const Home: FC = () => {
           <div className="banner-novidades-home">
             <BannerPageNovidades />
           </div>
-          <h3>
+          <div className="novidades" style={{ background: '#F2F2F2' }}>
+            <h3>
               <strong>Novidades</strong>
               <IoNewspaperOutline style={{ fontSize: '24px', marginLeft: '8px' }} />
             </h3>
-          <div className="novidades">
+            <ProdutosNovidades />
+            <h3>
+              <strong >Clica e confira</strong>
+              <BiHappyHeartEyes style={{ fontSize: '24px', marginLeft: '8px' }} />
+            </h3>
             <ProdutosNovidades />
           </div>
+
 
           {/* Seção de Serviços */}
           <div className="services-section">

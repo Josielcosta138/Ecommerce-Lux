@@ -1,61 +1,95 @@
-.div-nome {
-    display: flex;
-    /* width: 100%; */
-    margin: 10px;
-    flex-direction: column;
-    align-items: center;
-}
-
-.div-clientes {
-    display: flex;
-    width: 30%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid gray;
-    border-radius: 10px;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-}
-
-.div-nome-linha {
-    width: 100%;
-    padding-bottom: 10px;
-}
-
-.div-nome-linha p {
-    font-size: 12px;
     text-align: center;
+  }
+  
+  .titulo-descricao {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    min-height: 11vh; 
+    margin: 0 auto;
+    margin-top: 10px;
 }
-
-.text-field-spacing {
-    margin-bottom: 2px;
-}
-
-.modal-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 274px;
-    background-color: #fff;
-    border: 2px solid #000;
-    box-shadow: 24px;
+  
+  .titulo-categoria {
+    font-size: 2rem; 
+    margin-bottom: 0.5rem; 
+  }
+  
+  .descricao-categoria {
+    font-size: 19px; 
+    max-width: 80%;
+  }
+  
+  .grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr)); 
+    gap: 20px;
+    justify-content: center; 
+    margin-bottom: 60px;
+  }
+  
+  .produto {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    outline: 0;
-    color: #000;
-}
-
-.modal-box-endereco {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    background-color: #fff;
-    border: 2px solid #000;
-    box-shadow: 24px;
-    padding: 20px;
-    outline: 0;
-    color: #000;
-}
- 
+    transition: transform 0.2s;
+  }
+  
+  .produto:hover {
+    transform: translateY(-5px);
+  }
+  
+  .produto_imagem img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .produto_detalhes {
+    text-align: center;
+  }
+  
+  .produto_nome {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .produto_categoria {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  
+  .produto_tamanho {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .produto_preco {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .preco-atual-calca {
+    color: #726868;
+    font-weight: bold;
+  }
+  
+  .preco-antigo {
+    text-decoration: line-through;
+    color: #888;
+  }
+  
+  .produto_botao {
+    margin-top: 10px;
+  }
+  

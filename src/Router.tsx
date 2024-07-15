@@ -28,7 +28,7 @@ const Router : FC = () => {
                 <Route path="/calcas" element={<Calcas /> }/>
                 <Route path="/camisas" element={<Camisas /> }/>
                 <Route path="/jaquetas" element={<Jaquetas /> }/>
-                <Route path="/acessorios" element={<Acessórios /> }/>
+                <Route path="/conjutos" element={<Acessórios /> }/>
                 <Route path="/finalizar-compra" element={<FinalizarCompra /> }/>
                 <Route path="/checkout" element={<Checkout /> }/>
                 <Route path="/clientes" element={<Clientes />} />

@@ -1,13 +1,14 @@
 export interface IProduto {
-    codigoProduto: string,
-    id: number,
-    nome: string,
-    descricao: string,
-    preco: number,
+    codigo: string,
+    id : number,
+    nome : string,
+    categoria : string,
+    tamanho : string,
+    descricao : string,
+    preco : number,
     precoAntigo?: number,
-    imagemGrande: string,
-    imagemPequena: string,
-    enderecoImagem: string,
+    enderecoImagem : string,
+    imagemPequena : string,
 }
 
 export interface IBtnProduto {
