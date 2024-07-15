@@ -1,12 +1,16 @@
-import React, { FC, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { carregarCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
 import "./index.css";
-import BotaoPadrao from "../BtnPadrao";
 import ModalComprovante from "../ModalComprovante";
 import { STATUS_CODE, apiGet, apiPost } from "../../api/RestClient";
-import { GrUpdate } from "react-icons/gr";
+import { Alert, Box, Button, Checkbox, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { format, formatDate, parse, parseISO } from "date-fns";
+import QRCode from 'qrcode.react';
+import html2canvas from 'html2canvas';
+
+
+
+
 
 interface ItemCarrinho {
   nome: string;
@@ -19,19 +23,18 @@ interface ItemCarrinho {
 const Checkout: FC = () => {
   const [mostrarComprovante, setMostrarComprovante] = useState(false);
   const [dadosPedidoAtual, setDadosPedidoAtual] = useState<any>(null);
-  const navigate = useNavigate();
+  const [dadosBoleto, setDadosBoleto] = useState<{ pagador: string, valor: string, vencimento: string } | null>(null);
   const carrinho: ItemCarrinho[] = carregarCarrinho() as ItemCarrinho[];
-
   const [nome, setNome] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [endereco, setEndereco] = useState<string>("");
-  const [cidade, setCidade] = useState<string>("");
-  const [bairro, setBairro] = useState<string>("");
-  const [estado, setEstado] = useState<string>("");
-  const [cep, setCep] = useState<string>("");
   const [formaPagamento, setFormaPagamento] = useState<string>();
   const [idCliente, setIdCliente] = useState<string>("");
-  const [enderecoId, setEnderecoId] = useState<number>(0);
+  const [enderecoId, setEnderecoId] = useState<number | null>(null);
+  const [enderecos, setEnderecos] = useState<any[]>([]);
+  const [idClienteStorage, setIdClienteStorage] = useState<number | null>(null);
+  const [open, setOpen] = useState(false);
+  const [boletoImage, setBoletoImage] = useState<string | null>(null);
+  const boletoRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Leitura das informações do localStorage
@@ -42,27 +45,34 @@ const Checkout: FC = () => {
     setNome(nomeCliente);
     setEmail(emailCliente);
     setIdCliente(idCliente);
+    atualizarEndereco();
   }, []);
 
+
+
+
   const atualizarEndereco = async () => {
-    
+
     try {
-      // Faz uma chamada para a API para buscar o endereço do cliente
-      const response = apiGet(`enderecos/carregaEnderecosIdCliente/${idCliente}`);
-      
-      // Verifica se a resposta da API é bem-sucedida
-      if ((await response).status === STATUS_CODE.OK && (await response).data.length > 0) {
-        const enderecoData = (await response).data[0]; // primeiro endereço
-  
-        setEndereco(enderecoData.rua);
-        setBairro(enderecoData.bairro);
-        setCidade(enderecoData.cidade);
-        setEstado(enderecoData.estado);
-  
-        // Gera um CEP aleatório
-        const cepAleatorio = Math.floor(10000000 + Math.random() * 90000000).toString();
-        setCep(cepAleatorio);
-        setEnderecoId(enderecoData.id); 
+
+      const idClienteLocal = localStorage.getItem("idCliente") || "";
+      console.log('id cliente local', idClienteLocal);
+
+      const responseEnderecos = apiGet(`enderecos/carregaEnderecosIdCliente/${idClienteLocal}`);
+
+      if ((await responseEnderecos).status === STATUS_CODE.OK && (await responseEnderecos).data.length > 0) {
+        try {
+          const dadosCliente = (await responseEnderecos).data[0].clientes_id;
+          const formattedDate = (dadosCliente.dataNascimento);
+          const formatData = (inputDate: string) => {
+            const date = parseISO(formattedDate);
+            return format(date, 'dd/MM/yyyy');
+          }
+
+          setEnderecos((await responseEnderecos).data || []);
+        } catch (error) {
+          console.error("Erro ao carregar dados do cliente e endereços:", error);
+        }
 
       } else {
         console.error("Nenhum endereço encontrado para o cliente.");
@@ -76,11 +86,22 @@ const Checkout: FC = () => {
     console.log("Ícone de atualizar clicado!");
   };
 
+
+
+
+
   const handleFinalizarCompra = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (enderecoId === null) {
+      alert("Selecione um endereço!");
+      return;
+    }
+
+
+
     const dataPedido = new Date().toISOString().split('T')[0];
-    const clienteId = parseInt(idCliente, 10); 
+    const clienteId = parseInt(idCliente, 10);
 
     const formaPagamentoMap: { [key: string]: number } = {
       "cartaoCredito": 3,
@@ -90,10 +111,20 @@ const Checkout: FC = () => {
     };
 
 
-      if (formaPagamento === undefined || !(formaPagamento in formaPagamentoMap)) {
-        alert("Por favor, selecione uma forma de pagamento válida.");
-        return;
-      }
+    if (formaPagamento === undefined || !(formaPagamento in formaPagamentoMap)) {
+
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <Box className="alert-box" sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
+          <Alert severity="info" sx={{ mb: 2 }}>Selecione uma forma de pagamento!</Alert>
+        </Box>
+      </Modal>
+
+
+      return;
+    }
 
     const formaPagamentoId = formaPagamentoMap[formaPagamento];
 
@@ -103,17 +134,35 @@ const Checkout: FC = () => {
       preco: item.preco,
     }));
 
+    console.log('Id endereco: ' + enderecoId)
+
+
     const dadosPedido = {
       dataPedido,
       cliente: nome,
       totalPedido: parseFloat(calcularTotal()),
       clientesId: clienteId,
-      enderecoId,
+      enderecoId: enderecoId,
       formaPagamentoId,
       itensPedido,
     };
 
-    
+    if (formaPagamento === "boleto") {
+      const dataAtual = new Date();
+      const dataVencimento = new Date(dataAtual.getTime() + 20 * 24 * 60 * 60 * 1000); // Adiciona 20 dias
+      const dataVencimentoFormatada = dataVencimento.toISOString().split('T')[0]; // Formata no formato YYYY-MM-DD
+      const novosDadosBoleto = {
+        pagador: dadosPedido.cliente,
+        valor: dadosPedido.totalPedido.toFixed(2),
+        vencimento: dataVencimentoFormatada,
+      };
+      setDadosBoleto(novosDadosBoleto);
+      gerarBoleto(novosDadosBoleto);
+    }
+
+
+
+
     const limparCarrinho = () => {
       localStorage.removeItem("carrinho");
     };
@@ -138,8 +187,30 @@ const Checkout: FC = () => {
     return carrinho.reduce((total, item) => total + item.preco * item.quantidade, 0).toFixed(2);
   };
 
+  const codigoPix = Array.from({ length: 20 }, () => Math.floor(Math.random() * 10)).join('');
+  const conteudoPix = `00020126360014BR.PIX0114${codigoPix}02152040000`;
+
+
+  const gerarBoleto = (dadosBoleto: { pagador: string, valor: string, vencimento: string }) => {
+    if (boletoRef.current) {
+      html2canvas(boletoRef.current).then((canvas) => {
+        const img = canvas.toDataURL('image/png');
+        setBoletoImage(img);
+      });
+    }
+  };
+
+
+
+
+
+
+
   const renderizarPagamento = () => {
     switch (formaPagamento) {
+
+
+
       case "cartaoCredito":
         return (
           <div className="pagamento-detalhes">
@@ -162,6 +233,9 @@ const Checkout: FC = () => {
             </div>
           </div>
         );
+
+
+
       case "cartaoDebito":
         return (
           <div className="pagamento-detalhes">
@@ -184,25 +258,54 @@ const Checkout: FC = () => {
             </div>
           </div>
         );
+
+
+
       case "pix":
         return (
           <div className="pagamento-detalhes">
             <h3>Pagamento via Pix</h3>
             <p>Escaneie o QR code abaixo para pagar via Pix:</p>
-            <img src="/path/to/qrcode.png" alt="QR code Pix" className="qrcode-pix" />
-            <p>Código Pix: 12345678901234567890</p>
+            {/* Gerando o QR Code */}
+            <QRCode
+              value={conteudoPix}
+              size={256}
+              bgColor="#ffffff"
+              fgColor="#000000"
+              level="L"
+              className="qrcode-pix"
+            />
+            <p>Código Pix: {codigoPix}</p>
           </div>
         );
+
+
+
       case "boleto":
         return (
           <div className="pagamento-detalhes">
-            <h3>Pagamento via Boleto</h3>
-            <p>Imprima o boleto e pague em qualquer banco ou lotérica.</p>
-            <button className="btn-gerar-boleto">Gerar Boleto</button>
+            <h3>Boleto</h3>
+            {dadosBoleto && (
+              <div ref={boletoRef}>
+                <div className="boleto-content">
+                <img src={boletoImage || "https://via.placeholder.com/300x150?text=Boleto"} alt="Boleto" className="boleto-image" />
+
+                <div className="boleto-details">
+                  <p><strong>Pagador:</strong> {dadosBoleto.pagador}</p>
+                  <p><strong>Valor:</strong> R$ {dadosBoleto.valor}</p>
+                  <p><strong>Vencimento:</strong> {format(parseISO(dadosBoleto.vencimento), 'dd/MM/yyyy')}</p>
+                  {boletoImage && <img src={boletoImage} alt="Boleto" />}
+                </div>
+                <div className="boleto-description">
+                  <p>Certifique-se de pagar o boleto antes da data de vencimento para evitar multas ou juros. Se tiver alguma dúvida, entre em contato conosco.</p>
+                </div>
+              </div>
+              </div>
+            )}
           </div>
         );
       default:
-        return null;
+        return <div>Escolha uma forma de pagamento.</div>;
     }
   };
 
@@ -213,7 +316,7 @@ const Checkout: FC = () => {
         <form onSubmit={handleFinalizarCompra}>
           <h2>Informações do Cliente</h2>
           <div className="form-group">
-            <label htmlFor="nome">Nome Completo</label>
+            <label htmlFor="nome">Nome</label>
             <input
               type="text"
               id="nome"
@@ -232,64 +335,42 @@ const Checkout: FC = () => {
               required
             />
           </div>
-          <div className="form-group">
-          <label htmlFor="endereco">Endereço (rua)
-              <button
-                type="button"
-                onClick={atualizarEndereco}
-                className="update-button"
-              >
-          < GrUpdate />
-        </button>
-      </label>
-            <input
-              type="text"
-              id="endereco"
-              value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="bairro">Bairro</label>
-            <input
-              type="text"
-              id="bairro"
-              value={bairro}
-              onChange={(e) => setBairro(e.target.value)} 
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="cidade">Cidade</label>
-            <input
-              type="text"
-              id="cidade"
-              value={cidade}
-              onChange={(e) => setCidade(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="estado">Estado</label>
-            <input
-              type="text"
-              id="estado"
-              value={estado}
-              onChange={(e) => setEstado(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="cep">CEP</label>
-            <input
-              type="text"
-              id="cep"
-              value={cep}
-              onChange={(e) => setCep(e.target.value)}
-              required
-            />
-          </div>
+
+
+
+          <h2>Endereço</h2>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Selecionar</TableCell>
+                  <TableCell>Cidade</TableCell>
+                  <TableCell>Bairro</TableCell>
+                  <TableCell>Estado</TableCell>
+                  <TableCell>Endereço</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {enderecos.map((endereco) => (
+                  <TableRow key={endereco.id}>
+                    <TableCell>
+                      <Checkbox
+                        checked={enderecoId === endereco.id}
+                        onChange={() => setEnderecoId(enderecoId === endereco.id ? null : endereco.id)}
+                      />
+                    </TableCell>
+                    <TableCell>{endereco.cidade}</TableCell>
+                    <TableCell>{endereco.bairro}</TableCell>
+                    <TableCell>{endereco.estado}</TableCell>
+                    <TableCell>{endereco.rua}</TableCell>
+
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+
           <h2>Forma de Pagamento</h2>
           <div className="form-group">
             <label>

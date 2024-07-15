@@ -8,7 +8,7 @@ import InputQuantidade from "../../components/InputQuantidade";
 import { ICarrinhoStore } from "../../store/CarrinhoStore/types";
 import { addCarrinho, carregarCarrinho } from "../../store/CarrinhoStore/carrinhoStore";
 import ConfirmarModal from "../../components/ConfirmarModal";
-import { Alert, Box } from "@mui/material";
+import { Alert, Box, Modal } from "@mui/material";
 
 const ProdutosDetalhe: FC = () => {
   const { codigoProduto } = useParams();
@@ -18,7 +18,8 @@ const ProdutosDetalhe: FC = () => {
   const [quantidadeProdutoValidar, setQuantidadeProdutoValidar] = useState<number>(0);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const carrinho: ICarrinhoStore[] = carregarCarrinho();
-  const [alertMessage, setAlertMessage] = useState <string | null>(null);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     apiGet(`/produtosestoque/carregarProdutoEstoqueIdProduto/${codigoProduto}`).then((response) => {
@@ -48,6 +49,7 @@ const ProdutosDetalhe: FC = () => {
       setOpenModal(false);
       window.location.reload();
     }
+    
   };
 
   return (
@@ -110,18 +112,18 @@ const ProdutosDetalhe: FC = () => {
                 onChange={(quantidade: number) => setQuantidadeProduto(quantidade)}
               />
               <BotaoPadrao
-                label="Adicionar"
-                  onClick={() => {
-                    if (quantidadeProdutoValidar > 0 && quantidadeProdutoValidar >= quantidadeProduto) {
-                      setOpenModal(true);
+                label="Adicionar ao carrinho"
+                onClick={() => {
+                  if (quantidadeProdutoValidar > 0 && quantidadeProdutoValidar >= quantidadeProduto) {
+                    setOpenModal(true);
+                    setAlertMessage(null);
+                  } else {
+                    setAlertMessage("Quantidade insuficiente.");
+                    setTimeout(() => {
                       setAlertMessage(null);
-                    } else {
-                      setAlertMessage("Quantidade insuficiente.");
-                      setTimeout(() => {
-                        setAlertMessage(null);
-                      }, 3000);
-                    }
-                  }}
+                    }, 3000);
+                  }
+                }}
               />
               {quantidadeProdutoValidar <= 0 && (
                 <button className="botao-indisponivel" disabled>
@@ -131,9 +133,9 @@ const ProdutosDetalhe: FC = () => {
             </div>
             <br />
             {alertMessage && (
-                <Box className="alert-box" sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
-                  <Alert variant="filled" severity="error" sx={{ mb: 2 }}>  {alertMessage}</Alert>
-                </Box>
+              <Box className="alert-box" sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
+                <Alert variant="filled" severity="error" sx={{ mb: 2 }}>  {alertMessage}</Alert>
+              </Box>
 
             )}
 

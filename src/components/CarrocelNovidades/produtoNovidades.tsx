@@ -44,8 +44,8 @@ const ProdutosNovidades : FC = () => {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         responsive: [
             {
                 breakpoint: 1024,
@@ -77,7 +77,7 @@ const ProdutosNovidades : FC = () => {
     };
 
     return (
-        <div className="produtos-novidades-banner">
+        <div className="produtos-novidades-banner" style={{background: '#F2F2F2'}}>
             <Slider {...settings} className="produtos-novidades-slider">
                 {produtos.map((produto: IProduto) => (
                     <div key={produto.id} className="produto-banner">

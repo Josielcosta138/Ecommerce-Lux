@@ -1,4 +1,4 @@
-/* Atualizações no CSS */
+
 
 .container {
     width: 95%;
@@ -7,6 +7,7 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 1%;
+    background: #F2F2F2;
   }
   
   .produto {
@@ -91,8 +92,9 @@
   
   .combos-de-produtos,
   .novidades-container {
-    /* text-align: center; */
-    padding: 30px 0 2px;
+    /* padding: 130px 0 2px; */
+    padding-top: 0,5px;
+    padding-bottom: 50px;
   }
   
   /* Seção de Serviços */
@@ -230,5 +232,3 @@
     padding: 30px 0 2px;
   }
     
-
-  

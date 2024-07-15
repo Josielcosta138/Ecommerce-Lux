@@ -1,40 +1,54 @@
 import { FC, useState } from "react";
 import "./index.css";
 import { Popover } from "@mui/material";
+import Button from '@mui/material/Button';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import Stack from '@mui/material/Stack';
+import React from "react";
 
 const categories = [
   {
     name: "Categorias",
     subcategories: [
       { name: "Calças", link: "/calcas" },
-      { name: "Camisas", link: "/camisas" },
+      { name: "Camisetas", link: "/camisas" },
       { name: "Jaquetas", link: "/jaquetas" },
-      { name: "Acessórios", link: "/acessorios" },
+      { name: "Conjutos", link: "/conjutos" },
     ],
   },
 ];
+
 
 const MenuBar: FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // AÇÃO MENU CATEGORIAS
   const handleMouseEnter = (event: React.MouseEvent<HTMLLIElement>) => {
     setAnchorEl(event.currentTarget as unknown as HTMLAnchorElement);
   };
-
   const handleMouseLeave = () => {
     setAnchorEl(null);
   };
 
+
+
+
+  // PESQUISAS
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
-
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Redirecionar para a página de resultados de pesquisa com a query
     window.location.href = `/search?query=${searchQuery}`;
   };
+
+
 
   return (
     <><div className="search-bar">
@@ -55,7 +69,7 @@ const MenuBar: FC = () => {
         <ul>
           <li><a href="/home">Página Inicial</a></li>
           <li><a href="/produtos">Produtos</a></li>
-          <li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <li onClick={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <a href="#">Categorias</a>
             <Popover
               open={Boolean(anchorEl)}

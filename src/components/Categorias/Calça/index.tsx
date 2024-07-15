@@ -1,71 +1,85 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IProduto } from "./types";
-// import { STATUS_CODE, apiGet } from "../../api/RestClient";
-// import BotaoPadrao from "../../components/BtnPadrao";
 import "./index.css"
 import { STATUS_CODE, apiGet } from "../../../api/RestClient";
 import BotaoPadrao from "../../BtnPadrao";
+import { IProduto } from "./types";
+import { PiPants } from "react-icons/pi";
 
-const Calça : FC = () => {
-    const { categoria } = useParams()
-    const [ produtos, setProdutos ] = useState<IProduto[]>([])
+const Calca: FC = () => {
+  const [produtos, setProdutos] = useState<IProduto[]>([])
 
-    const carregarProdutos = async() => {
-        console.log("Categoria: ", categoria)
-
-        let url= "/produtos/carregar"
-
-        if (categoria) {
-            url= `/produto/categoria/${categoria}`
-        }
-
-        const response = await apiGet(url)
-
-        if (response.status === STATUS_CODE.OK) {
-            console.log(response)
-            setProdutos(response.data)
-        }
+  const carregarProdutos = async () => {
+    const response = await apiGet(`produtos/carregar/todascategoria/${1}`);
+    if (response.status === STATUS_CODE.OK) {
+      setProdutos(response.data);
     }
+  };
 
-    useEffect(() => {
-        carregarProdutos();
-    },[])
+  useEffect(() => {
+    carregarProdutos();
+  }, []);
 
-    const redirecionarDetalhesProduto = (idProduto: number) => {
-        if (idProduto) {
-            window.location.href= `/produtos/detalhes/${idProduto}`
-        }
+  const redirecionarDetalhesProduto = (idProduto: number) => {
+    if (idProduto) {
+      window.location.href = `produtos/detalhes/${idProduto}`;
     }
+  };
 
-    return <>
-        {produtos?.length ? <>
-            <div className="container">
-                {produtos.map((produto: IProduto) => {
-                    return <>
-                        <div className="produto">
-                            <a className="produto-imagem" href={`produtos/detalhes/${produto.id}`}> 
-                                <img src={`/${produto.enderecoImagem}`} />
-                            </a>
-                            <div className="produto-nome">
-                                <p>{produto.nome}</p>
-                            </div>
-                            <div className="produto-preco">
-                                <p>R$ {produto.preco}</p>
-                                <div>
-                                    <BotaoPadrao label="Comprar" onClick={() =>{
-                                        redirecionarDetalhesProduto((produto.id))
-                                    }}/>
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                })}
 
-            </div>
-        </> : <div>Protutos-Teste</div>
-        }
-
+  return (
+    <>
+        <div className="titulo-descricao">
+            <h2 className="titulo-categoria">Calças</h2>
+            <p className="descricao-categoria">
+              Confira nossa seleção exclusiva de calças de diversas categorias e
+              estilos. <PiPants style={{ fontSize: '24px', marginLeft: '8px', marginBottom: '-5px' }}/>
+            </p>
+        </div>
+      <div className="container">
+        {produtos?.length ? (
+          <div className="grid-produtos">
+            {produtos.map((produto: IProduto) => (
+              <div key={produto.id} className="produto">
+                <a
+                  className="produto_imagem"
+                  href={`/produtos/detalhes/${produto.id}`}
+                >
+                  <img src={produto.enderecoImagem} alt={produto.nome} />
+                </a>
+                <div className="produto_detalhes">
+                  <div className="produto_nome">
+                    <p>{produto.nome}</p>
+                  </div>
+                  <div className="produto_categoria">
+                    <p>
+                      <strong>{produto.descricao}</strong>
+                    </p>
+                  </div>
+                  <div className="produto_tamanho">
+                    <p>{produto.tamanho}</p>
+                  </div>
+                  <div className="produto_preco">
+                    <p className="preco-atual-calca">R$ {produto.preco}</p>
+                    {produto.precoAntigo && (
+                      <p className="preco-antigo">R$ {produto.precoAntigo}</p>
+                    )}
+                  </div>
+                  <div className="produto_botao">
+                    <BotaoPadrao
+                      label="Comprar"
+                      onClick={() => redirecionarDetalhesProduto(produto.id)}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div>Aguarde, os produtos estão carregando.</div>
+        )}
+      </div>
     </>
+  );
 }
-export default Calça;
+export default Calca;
