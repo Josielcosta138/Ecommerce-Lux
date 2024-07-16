@@ -47,9 +47,13 @@ const ProdutosDetalhe: FC = () => {
       const carrinhoItem: ICarrinhoStore = { ...produto, quantidade: quantidadeProduto || 0 };
       addCarrinho(carrinhoItem);
       setOpenModal(false);
-      window.location.reload();
+      setOpen(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+     
     }
-    
+
   };
 
   return (
@@ -161,6 +165,20 @@ const ProdutosDetalhe: FC = () => {
         onCancelar={() => setOpenModal(false)}
         onConfirmar={handleConfirmar}
       />
+
+
+
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <Box className="alert-box" sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
+          <Alert variant="filled" severity="success" sx={{ mb: 2 }}>Seu produto foi adicionado ao carrinho!</Alert>
+        </Box>
+      </Modal>
+
+
+
     </>
   );
 };
