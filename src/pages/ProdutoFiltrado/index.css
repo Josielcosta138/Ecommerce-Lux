@@ -1,0 +1,95 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .titulo-descricao {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    min-height: 11vh; 
+    margin: 0 auto;
+    margin-top: 10px;
+}
+  
+  .titulo-categoria {
+    font-size: 2rem; 
+    margin-bottom: 0.5rem; 
+  }
+  
+  .descricao-categoria {
+    font-size: 19px; 
+    max-width: 80%;
+  }
+  
+  .grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr)); 
+    gap: 20px;
+    justify-content: center; 
+    margin-bottom: 60px;
+  }
+  
+  .produto {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s;
+  }
+  
+  .produto:hover {
+    transform: translateY(-5px);
+  }
+  
+  .produto_imagem img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .produto_detalhes {
+    text-align: center;
+  }
+  
+  .produto_nome {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .produto_categoria {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  
+  .produto_tamanho {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .produto_preco {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .preco-atual-calca {
+    color: #726868;
+    font-weight: bold;
+  }
+  
+  .preco-antigo {
+    text-decoration: line-through;
+    color: #888;
+  }
+  
+  .produto_botao {
+    margin-top: 10px;
+  }
+  

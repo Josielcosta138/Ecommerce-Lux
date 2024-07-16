@@ -1,15 +1,8 @@
 import { FC, useState } from "react";
 import "./index.css";
 import { Popover } from "@mui/material";
-import Button from '@mui/material/Button';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
 import React from "react";
+import { apiGet } from "../../api/RestClient";
 
 const categories = [
   {
@@ -18,7 +11,7 @@ const categories = [
       { name: "Calças", link: "/calcas" },
       { name: "Camisetas", link: "/camisas" },
       { name: "Jaquetas", link: "/jaquetas" },
-      { name: "Conjutos", link: "/conjutos" },
+      { name: "Conjuntos", link: "/conjutos" },
     ],
   },
 ];
@@ -26,7 +19,7 @@ const categories = [
 
 const MenuBar: FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [produtoPesquisa, setProdutoPesquisa] = useState<string>("");
 
   // AÇÃO MENU CATEGORIAS
   const handleMouseEnter = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -37,26 +30,21 @@ const MenuBar: FC = () => {
   };
 
 
-
-
   // PESQUISAS
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    window.location.href = `/search?query=${searchQuery}`;
-  };
-
+  const filtrarProdutos =  (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      window.console.log(">>> método filtrar menuBar");
+      window.location.href = `/produtos/carregar/filtrarprodutos/${produtoPesquisa}`
+  }
 
 
   return (
     <><div className="search-bar">
-    <form onSubmit={handleSearchSubmit}>
+    <form onSubmit={filtrarProdutos}>
       <input
         type="text"
-        value={searchQuery}
-        onChange={handleSearchChange}
+        value={produtoPesquisa}
+        onChange={(event) => setProdutoPesquisa(event.target.value)}
         placeholder="Pesquisar produtos..."
       />
       <button type="submit">Buscar</button>

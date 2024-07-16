@@ -14,6 +14,7 @@ import Checkout from "./components/Checkout";
 import Clientes from "./pages/Clientes";
 import MeusPedidos from "./pages/MeusPedidos";
 import EditarClientes from "./pages/EditarClientes";
+import ProdutosFiltro from "./pages/ProdutoFiltrado";
 
 const Router : FC = () => {
     return(
@@ -33,6 +34,7 @@ const Router : FC = () => {
                 <Route path="/checkout" element={<Checkout /> }/>
                 <Route path="/clientes" element={<Clientes />} />
                 <Route path="/editarclientes" element={<EditarClientes />} />
+                <Route path="/produtos/carregar/filtrarprodutos/:nomeProduto" element={<ProdutosFiltro />} />
                 <Route path="/meuspedidos/carregar/:id" element={<MeusPedidos />} />
                 <Route path="*" element={<Home />} />
             </Routes>
@@ -40,3 +42,4 @@ const Router : FC = () => {
     );
 }
 export default Router;
+
