@@ -345,7 +345,7 @@ const EditarClientes: FC = () => {
               </Table>
             </TableContainer>
 
-            <div className="div-nome">
+            <div className="div-nome-editar-cadastro">
               <Button
                 variant="contained"
                 onClick={salvarCliente}
