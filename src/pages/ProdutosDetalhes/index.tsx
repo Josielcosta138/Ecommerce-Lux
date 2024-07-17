@@ -10,6 +10,7 @@ import { addCarrinho, carregarCarrinho } from "../../store/CarrinhoStore/carrinh
 import ConfirmarModal from "../../components/ConfirmarModal";
 import { Alert, Box, Modal } from "@mui/material";
 
+
 const ProdutosDetalhe: FC = () => {
   const { codigoProduto } = useParams();
   const navigate = useNavigate();
@@ -130,9 +131,7 @@ const ProdutosDetalhe: FC = () => {
                 }}
               />
               {quantidadeProdutoValidar <= 0 && (
-                <button className="botao-indisponivel" disabled>
-                  Estoque indisponível
-                </button>
+                <Alert severity="warning">Estoque insuficiente no momento.</Alert>
               )}
             </div>
             <br />

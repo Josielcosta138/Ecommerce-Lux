@@ -5,8 +5,8 @@
 }
 
 .container-botao button {
-    width: 100%;
-    background-color: #000000;
+    width: 90%;
+    background-color: #141414;
     color: #FFFFFF;
     border-radius: 10px;
     border-color: #FFFFFF;
@@ -14,7 +14,7 @@
 }
 
 .botao-indisponivel {
-    width: 100%;
+    width: 90%;
     background-color: #d16565;
     color:#ffffff;
     border-radius: 10px;
